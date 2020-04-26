@@ -515,41 +515,42 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
-			// Prepare this context for refreshing.
+			// 1.准备刷新环境
 			prepareRefresh();
 
-			// Tell the subclass to refresh the internal bean factory.
+			// 2.刷新内部bean factory  删除之前的bean factory,新建bean factory
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-			// Prepare the bean factory for use in this context.
+			// 3.bean factory的准备
 			prepareBeanFactory(beanFactory);
 
 			try {
-				// Allows post-processing of the bean factory in context subclasses.
+				// 4.添加beanFactory的后处理器
 				postProcessBeanFactory(beanFactory);
 
-				// Invoke factory processors registered as beans in the context.
+				// 5.注册工厂处理器
 				invokeBeanFactoryPostProcessors(beanFactory);
 
-				// Register bean processors that intercept bean creation.
+				// 6.注册创建bean的时候的拦截处理器
 				registerBeanPostProcessors(beanFactory);
 
-				// Initialize message source for this context.
+				// 7.初始化context的消息源
 				initMessageSource();
 
-				// Initialize event multicaster for this context.
+				// 8.初始化事件多播器
 				initApplicationEventMulticaster();
 
-				// Initialize other special beans in specific context subclasses.
+				// 9.初始化其他beans
 				onRefresh();
 
-				// Check for listener beans and register them.
+				// 10.检查listeners并且注册它们
 				registerListeners();
 
-				// Instantiate all remaining (non-lazy-init) singletons.
+
+				// 11.实例化所有剩下的单例bean(非懒加载的)
 				finishBeanFactoryInitialization(beanFactory);
 
-				// Last step: publish corresponding event.
+				// 12.发布对应事件
 				finishRefresh();
 			}
 
@@ -578,8 +579,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
-	 * Prepare this context for refreshing, setting its startup date and
-	 * active flag as well as performing any initialization of property sources.
+	 * 准备环境来进行刷新，设置启动时间、active标志以及执行属性源的初始化
 	 */
 	protected void prepareRefresh() {
 		// Switch to active.
@@ -596,25 +596,25 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			}
 		}
 
-		// Initialize any placeholder property sources in the context environment.
+
+		// 初始化任何上下文环境中的占位符属性源
 		initPropertySources();
 
-		// Validate that all properties marked as required are resolvable:
+		// 验证所有必需属性都是可解析的:
 		// see ConfigurablePropertyResolver#setRequiredProperties
 		getEnvironment().validateRequiredProperties();
 
-		// Store pre-refresh ApplicationListeners...
+		// 存储未刷新的应用程序监听器
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
 		}
 		else {
-			// Reset local application listeners to pre-refresh state.
+			// 将当前的应用程序监听器设置为未刷新状态
 			this.applicationListeners.clear();
 			this.applicationListeners.addAll(this.earlyApplicationListeners);
 		}
 
-		// Allow for the collection of early ApplicationEvents,
-		// to be published once the multicaster is available...
+		// 允许当多播器可用的时候，早期应用程序事件集合被发布
 		this.earlyApplicationEvents = new LinkedHashSet<>();
 	}
 
@@ -639,17 +639,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
-	 * Configure the factory's standard context characteristics,
-	 * such as the context's ClassLoader and post-processors.
-	 * @param beanFactory the BeanFactory to configure
+	 * 配置factory标准上下文的参数 例如上下文的ClassLoader和后置处理器
 	 */
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
-		// Tell the internal bean factory to use the context's class loader etc.
+		// 告知内部bean factory使用context的class loader等
 		beanFactory.setBeanClassLoader(getClassLoader());
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		// Configure the bean factory with context callbacks.
+		// 给bean factory加入context回调函数
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
@@ -658,24 +657,24 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.ignoreDependencyInterface(MessageSourceAware.class);
 		beanFactory.ignoreDependencyInterface(ApplicationContextAware.class);
 
-		// BeanFactory interface not registered as resolvable type in a plain factory.
-		// MessageSource registered (and found for autowiring) as a bean.
+		// BeanFactory接口在一般的factory中不会被注册为可解析类型
+		// MessageSource被注册为一个bean
 		beanFactory.registerResolvableDependency(BeanFactory.class, beanFactory);
 		beanFactory.registerResolvableDependency(ResourceLoader.class, this);
 		beanFactory.registerResolvableDependency(ApplicationEventPublisher.class, this);
 		beanFactory.registerResolvableDependency(ApplicationContext.class, this);
 
-		// Register early post-processor for detecting inner beans as ApplicationListeners.
+		// 注册早期的后置处理器来将内部bean设置为ApplicationListeners
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));
 
-		// Detect a LoadTimeWeaver and prepare for weaving, if found.
+		// 如果发现LoadTimeWeaver,那么就准备进行织入
 		if (beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
 			beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
 			// Set a temporary ClassLoader for type matching.
 			beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
 		}
 
-		// Register default environment beans.
+		// 注册默认的环境Bean
 		if (!beanFactory.containsLocalBean(ENVIRONMENT_BEAN_NAME)) {
 			beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
 		}
@@ -688,19 +687,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
-	 * Modify the application context's internal bean factory after its standard
-	 * initialization. All bean definitions will have been loaded, but no beans
-	 * will have been instantiated yet. This allows for registering special
-	 * BeanPostProcessors etc in certain ApplicationContext implementations.
-	 * @param beanFactory the bean factory used by the application context
+	 * 修改内部bean factory
+	 * 加载所有bean但是不实例化
+	 * 这样允许实现特定的BeanPostProcessor在具体的ApplicationContext中
 	 */
 	protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 	}
 
 	/**
-	 * Instantiate and invoke all registered BeanFactoryPostProcessor beans,
-	 * respecting explicit order if given.
-	 * <p>Must be called before singleton instantiation.
+	 * 实例化并且调用所有的已注册的BeanFactoryPostProcessor
+	 * 如果有具体的给定顺序则遵循顺序
+	 * 必须在singleton bean实例化之前调用
 	 */
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
@@ -1381,11 +1378,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	//---------------------------------------------------------------------
 
 	/**
-	 * Subclasses must implement this method to perform the actual configuration load.
-	 * The method is invoked by {@link #refresh()} before any other initialization work.
-	 * <p>A subclass will either create a new bean factory and hold a reference to it,
-	 * or return a single BeanFactory instance that it holds. In the latter case, it will
-	 * usually throw an IllegalStateException if refreshing the context more than once.
+	 * 子类必须实现这个方法来执行真正的配置导入，这个方法在任何初始化工作之前被refresh()调用
+	 * 子类必须创建一个新的bean factory并且持有它的引用或者返回一个单例BeanFactory
+	 * 在后一种情况下，它经常会抛出IllegalStateException当刷新上下文超过一次的时候
 	 * @throws BeansException if initialization of the bean factory failed
 	 * @throws IllegalStateException if already initialized and multiple refresh
 	 * attempts are not supported

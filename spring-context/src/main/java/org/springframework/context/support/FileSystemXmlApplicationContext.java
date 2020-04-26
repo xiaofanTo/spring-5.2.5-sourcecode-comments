@@ -135,9 +135,11 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	public FileSystemXmlApplicationContext(
 			String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
 			throws BeansException {
-
+		//1.设置父容器
 		super(parent);
+		//2.设置配置文件
 		setConfigLocations(configLocations);
+		//3.是否刷新容器
 		if (refresh) {
 			refresh();
 		}
