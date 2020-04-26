@@ -306,11 +306,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * Load bean definitions from the specified XML file.
-	 * @param encodedResource the resource descriptor for the XML file,
-	 * allowing to specify an encoding to use for parsing the file
-	 * @return the number of bean definitions found
-	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
+	 * 从指定的resource加载BeanDefinitions
 	 */
 	public int loadBeanDefinitions(EncodedResource encodedResource) throws BeanDefinitionStoreException {
 		Assert.notNull(encodedResource, "EncodedResource must not be null");
@@ -318,11 +314,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			logger.trace("Loading XML bean definitions from " + encodedResource);
 		}
 
+		//查看该resource是否已加载
 		Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
 		if (currentResources == null) {
 			currentResources = new HashSet<>(4);
 			this.resourcesCurrentlyBeingLoaded.set(currentResources);
 		}
+		//重复加载抛出异常
 		if (!currentResources.add(encodedResource)) {
 			throw new BeanDefinitionStoreException(
 					"Detected cyclic loading of " + encodedResource + " - check your import definitions!");
@@ -333,6 +331,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			if (encodedResource.getEncoding() != null) {
 				inputSource.setEncoding(encodedResource.getEncoding());
 			}
+			//真正加载的地方
 			return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 		}
 		catch (IOException ex) {
@@ -340,6 +339,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					"IOException parsing XML document from " + encodedResource.getResource(), ex);
 		}
 		finally {
+			//加载完成后删除  防止ThreadLocal内存泄露
 			currentResources.remove(encodedResource);
 			if (currentResources.isEmpty()) {
 				this.resourcesCurrentlyBeingLoaded.remove();
@@ -373,19 +373,15 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 
 	/**
-	 * Actually load bean definitions from the specified XML file.
-	 * @param inputSource the SAX InputSource to read from
-	 * @param resource the resource descriptor for the XML file
-	 * @return the number of bean definitions found
-	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
-	 * @see #doLoadDocument
-	 * @see #registerBeanDefinitions
+	 * 真正加载BeanDefinitions的地方
 	 */
 	protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
 			throws BeanDefinitionStoreException {
 
 		try {
+			//1.解析xml文档
 			Document doc = doLoadDocument(inputSource, resource);
+			//2.生成BeanDefinitions
 			int count = registerBeanDefinitions(doc, resource);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
@@ -418,13 +414,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * Actually load the specified document using the configured DocumentLoader.
-	 * @param inputSource the SAX InputSource to read from
-	 * @param resource the resource descriptor for the XML file
-	 * @return the DOM Document
-	 * @throws Exception when thrown from the DocumentLoader
-	 * @see #setDocumentLoader
-	 * @see DocumentLoader#loadDocument
+	 * 实际使用配置的文档加载器加载指定的文档
 	 */
 	protected Document doLoadDocument(InputSource inputSource, Resource resource) throws Exception {
 		return this.documentLoader.loadDocument(inputSource, getEntityResolver(), this.errorHandler,
@@ -506,6 +496,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
 		int countBefore = getRegistry().getBeanDefinitionCount();
+		//实际生成BeanDefinitions
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
 		return getRegistry().getBeanDefinitionCount() - countBefore;
 	}

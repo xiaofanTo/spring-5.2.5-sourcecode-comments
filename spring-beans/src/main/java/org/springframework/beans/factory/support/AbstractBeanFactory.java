@@ -760,10 +760,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	}
 
 
-	//---------------------------------------------------------------------
-	// Implementation of ConfigurableBeanFactory interface
-	//---------------------------------------------------------------------
-
+	//设置父容器
 	@Override
 	public void setParentBeanFactory(@Nullable BeanFactory parentBeanFactory) {
 		if (this.parentBeanFactory != null && this.parentBeanFactory != parentBeanFactory) {

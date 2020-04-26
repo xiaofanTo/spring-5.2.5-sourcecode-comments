@@ -115,7 +115,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 
 	/**
-	 * Register each bean definition within the given root {@code <beans/>} element.
+	 * 注册BeanDefinitions
 	 */
 	@SuppressWarnings("deprecation")  // for Environment.acceptsProfiles(String...)
 	protected void doRegisterBeanDefinitions(Element root) {
