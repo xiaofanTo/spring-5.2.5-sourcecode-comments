@@ -71,6 +71,8 @@ public interface ApplicationContextAware extends Aware {
 	 * @throws BeansException if thrown by application context methods
 	 * @see org.springframework.beans.factory.BeanInitializationException
 	 */
+
+	//获取当前环境中的ApplicationContext
 	void setApplicationContext(ApplicationContext applicationContext) throws BeansException;
 
 }

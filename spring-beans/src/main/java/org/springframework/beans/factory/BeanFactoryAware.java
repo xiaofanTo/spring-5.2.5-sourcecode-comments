@@ -50,6 +50,8 @@ public interface BeanFactoryAware extends Aware {
 	 * @throws BeansException in case of initialization errors
 	 * @see BeanInitializationException
 	 */
+
+	//获取当前BeanFactory
 	void setBeanFactory(BeanFactory beanFactory) throws BeansException;
 
 }
