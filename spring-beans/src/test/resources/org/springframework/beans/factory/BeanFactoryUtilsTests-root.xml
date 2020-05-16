@@ -13,7 +13,7 @@
 	<bean id="annotatedBean" class="org.springframework.beans.testfixture.beans.AnnotatedBean"/>
 
 	<!-- Overridden by next factory -->
-	<bean id="test" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean id="com.xiaohuan.Test" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>custom</value></property>
 		<property name="age"><value>25</value></property>
 	</bean>

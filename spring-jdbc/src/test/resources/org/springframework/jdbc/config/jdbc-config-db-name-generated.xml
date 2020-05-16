@@ -6,7 +6,7 @@
 
 	<embedded-database id="dataSource" database-name="shouldBeOverriddenByGeneratedName" generate-name="true">
 		<script location="classpath:org/springframework/jdbc/config/db-schema.sql" />
-		<script location="classpath:org/springframework/jdbc/config/db-test-data.sql" />
+		<script location="classpath:org/springframework/jdbc/config/db-com.xiaohuan.Test-data.sql" />
 	</embedded-database>
 
 </beans:beans>

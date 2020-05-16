@@ -138,7 +138,7 @@
 	<bean id="other" class="org.springframework.beans.testfixture.beans.IndexedTestBean"/>
 
 	<bean id="file" class="java.io.File">
-		<constructor-arg><value>/test</value></constructor-arg>
+		<constructor-arg><value>/com.xiaohuan.Test</value></constructor-arg>
 	</bean>
 
 	<bean id="beanWithBoolean" class="org.springframework.beans.factory.xml.SingleSimpleTypeConstructorBean" scope="prototype">
@@ -198,11 +198,11 @@
 	</bean>
 
 	<bean id="string" class="java.lang.String" autowire-candidate="false">
-		<constructor-arg><value type="java.lang.String">test</value></constructor-arg>
+		<constructor-arg><value type="java.lang.String">com.xiaohuan.Test</value></constructor-arg>
 	</bean>
 
 	<bean id="stringConstructor" class="org.springframework.beans.factory.xml.XmlBeanFactoryTests$StringConstructorTestBean" scope="prototype">
-		<constructor-arg value="test"/>
+		<constructor-arg value="com.xiaohuan.Test"/>
 	</bean>
 
 	<bean id="constructorArray" class="org.springframework.beans.factory.xml.XmlBeanFactoryTests$ConstructorArrayTestBean" scope="prototype">

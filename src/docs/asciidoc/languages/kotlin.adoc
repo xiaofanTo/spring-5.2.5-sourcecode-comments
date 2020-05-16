@@ -860,7 +860,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featu
 As described in the <<testing#testcontext-junit-jupiter-di#spring-web-reactive, dedicated section>>,
 JUnit 5 allows constructor injection of beans which is pretty useful with Kotlin
 in order to use `val` instead of `lateinit var`. You can use
-{api-spring-framework}/test/context/TestConstructor.html[`@TestConstructor(autowireMode = AutowireMode.ALL)`]
+{api-spring-framework}/com.xiaohuan.Test/context/TestConstructor.html[`@TestConstructor(autowireMode = AutowireMode.ALL)`]
 to enable autowiring for all parameters.
 
 ====
@@ -878,9 +878,9 @@ class OrderServiceIntegrationTests(val orderService: OrderService,
 
 ==== `PER_CLASS` Lifecycle
 
-Kotlin lets you specify meaningful test function names between backticks (```).
-As of JUnit 5, Kotlin test classes can use the `@TestInstance(TestInstance.Lifecycle.PER_CLASS)`
-annotation to enable a single instantiation of test classes, which allows the use of `@BeforeAll`
+Kotlin lets you specify meaningful com.xiaohuan.Test function names between backticks (```).
+As of JUnit 5, Kotlin com.xiaohuan.Test classes can use the `@TestInstance(TestInstance.Lifecycle.PER_CLASS)`
+annotation to enable a single instantiation of com.xiaohuan.Test classes, which allows the use of `@BeforeAll`
 and `@AfterAll` annotations on non-static methods, which is a good fit for Kotlin.
 
 You can also change the default behavior to `PER_CLASS` thanks to a `junit-platform.properties`
@@ -901,13 +901,13 @@ class IntegrationTests {
     application.start()
   }
 
-  @Test
+  @com.xiaohuan.Test
   fun `Find all users on HTML page`() {
     client.get().uri("/users")
         .accept(TEXT_HTML)
         .retrieve()
         .bodyToMono<String>()
-        .test()
+        .com.xiaohuan.Test()
         .expectNextMatches { it.contains("Foo") }
         .verifyComplete()
   }
@@ -933,13 +933,13 @@ class SpecificationLikeTests {
   inner class Calculator {
      val calculator = SampleCalculator()
 
-     @Test
+     @com.xiaohuan.Test
      fun `should return the result of adding the first number to the second number`() {
         val sum = calculator.sum(2, 4)
         assertEquals(6, sum)
      }
 
-     @Test
+     @com.xiaohuan.Test
      fun `should return the result of subtracting the second number from the first number`() {
         val subtract = calculator.subtract(4, 2)
         assertEquals(2, subtract)

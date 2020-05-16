@@ -1301,7 +1301,7 @@ Business Delegate patterns. These are better than spraying JNDI lookups througho
 client code, but their usual implementations have significant disadvantages:
 
 * Typically, code that uses EJBs depends on Service Locator or Business Delegate singletons,
-  making it hard to test.
+  making it hard to com.xiaohuan.Test.
 * In the case of the Service Locator pattern used without a Business Delegate,
   application code still ends up having to invoke the `create()` method on an EJB home
   and deal with the resulting exceptions. Thus, it remains tied to the EJB API and the
@@ -1400,7 +1400,7 @@ The following example shows how to do so:
 
 This EJB access mechanism delivers huge simplification of application code. The web tier
 code (or other EJB client code) has no dependence on the use of EJB. To
-replace this EJB reference with a POJO or a mock object or other test stub, we could
+replace this EJB reference with a POJO or a mock object or other com.xiaohuan.Test stub, we could
 change the `myComponent` bean definition without changing a line of Java code.
 Additionally, we have not had to write a single line of JNDI lookup or other EJB plumbing
 code as part of our application.
@@ -5750,7 +5750,7 @@ pretty easy to create a `MimeMessage`, as the following example shows:
 
 	MimeMessage message = sender.createMimeMessage();
 	MimeMessageHelper helper = new MimeMessageHelper(message);
-	helper.setTo("test@host.com");
+	helper.setTo("com.xiaohuan.Test@host.com");
 	helper.setText("Thank you for ordering!");
 
 	sender.send(message);
@@ -5780,7 +5780,7 @@ with a single JPEG image attachment:
 
 	// use the true flag to indicate you need a multipart message
 	MimeMessageHelper helper = new MimeMessageHelper(message, true);
-	helper.setTo("test@host.com");
+	helper.setTo("com.xiaohuan.Test@host.com");
 
 	helper.setText("Check out this image!");
 
@@ -5807,7 +5807,7 @@ with an inline image:
 
 	// use the true flag to indicate you need a multipart message
 	MimeMessageHelper helper = new MimeMessageHelper(message, true);
-	helper.setTo("test@host.com");
+	helper.setTo("com.xiaohuan.Test@host.com");
 
 	// use the true flag to indicate the text included is HTML
 	helper.setText("<html><body><img src='cid:identifier1234'></body></html>", true);
@@ -5902,7 +5902,7 @@ The variants that Spring provides are as follows:
 * `SyncTaskExecutor`:
   This implementation does not execute invocations asynchronously. Instead, each
   invocation takes place in the calling thread. It is primarily used in situations
-  where multi-threading is not necessary, such as in simple test cases.
+  where multi-threading is not necessary, such as in simple com.xiaohuan.Test cases.
 * `SimpleAsyncTaskExecutor`:
   This implementation does not reuse any threads. Rather, it starts up a new thread
   for each invocation. However, it does support a concurrency limit that blocks

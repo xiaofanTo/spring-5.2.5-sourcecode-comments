@@ -24,7 +24,7 @@ _When instructed to execute `./gradlew` from the command line, be sure to execut
 1. Change the _Forbidden reference (access rule)_ in Eclipse from Error to Warning
 (Preferences -> Java -> Compiler -> Errors/Warnings -> Deprecated and restricted API -> Forbidden reference (access rule)).
 1. Optionally install the [AspectJ Development Tools](https://marketplace.eclipse.org/content/aspectj-development-tools) (_AJDT_) if you need to work with the `spring-aspects` project. The AspectJ Development Tools available in the Eclipse Marketplace have been tested with these instructions using STS 4.5 (Eclipse 4.14).
-1. Optionally install the [TestNG plugin](https://testng.org/doc/eclipse.html) in Eclipse if you need to execute TestNG tests in the `spring-test` module.
+1. Optionally install the [TestNG plugin](https://testng.org/doc/eclipse.html) in Eclipse if you need to execute TestNG tests in the `spring-com.xiaohuan.Test` module.
 1. Build `spring-oxm` from the command line with `./gradlew :spring-oxm:check`.
 1. To apply project specific settings, run `./gradlew eclipseBuildship` from the command line.
 1. Import into Eclipse (File -> Import -> Gradle -> Existing Gradle Project -> Navigate to the locally cloned `spring-framework` directory -> Select Finish).

@@ -9,7 +9,7 @@
 
 	<context:annotation-config/>
 
-	<bean id="eventCollector" class="org.springframework.context.event.test.EventCollector"/>
+	<bean id="eventCollector" class="org.springframework.context.event.com.xiaohuan.Test.EventCollector"/>
 
 	<bean id="testEventListener"
 		  class="org.springframework.context.event.AnnotationDrivenEventListenerTests$TestEventListener"/>

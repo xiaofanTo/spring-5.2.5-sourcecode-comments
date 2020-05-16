@@ -7,7 +7,7 @@
 
 	<bean id="singletonMap" class="java.util.Collections" factory-method="singletonMap" scope="prototype">
 		<aop:scoped-proxy/>
-		<constructor-arg value="test"/>
+		<constructor-arg value="com.xiaohuan.Test"/>
 		<constructor-arg value="1234"/>
 	</bean>
 

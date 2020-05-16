@@ -9,7 +9,7 @@
 
 	<jdbc:initialize-database data-source="dataSource">
 		<jdbc:script location="classpath:org/springframework/jdbc/config/db-schema.sql" encoding="ISO-8859-1"/>
-		<jdbc:script location="classpath:org/springframework/jdbc/config/db-test-data-endings.sql" separator="@@"/>
+		<jdbc:script location="classpath:org/springframework/jdbc/config/db-com.xiaohuan.Test-data-endings.sql" separator="@@"/>
 	</jdbc:initialize-database>
 
 </beans>

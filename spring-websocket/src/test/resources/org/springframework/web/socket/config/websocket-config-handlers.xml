@@ -10,7 +10,7 @@
 	</websocket:handlers>
 
 	<websocket:handlers>
-		<websocket:mapping path="/test" handler="testHandler"/>
+		<websocket:mapping path="/com.xiaohuan.Test" handler="testHandler"/>
 	</websocket:handlers>
 
 	<bean id="testHandler" class="org.springframework.web.socket.config.TestWebSocketHandler"/>

@@ -14,7 +14,7 @@
 	<bean id="aapc.quickTargetSourceCreator"
 		class="org.springframework.aop.framework.autoproxy.target.QuickTargetSourceCreator"/>
 
-	<bean id="test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean id="com.xiaohuan.Test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>Rod</value></property>
 		<property name="spouse"><ref bean="wife"/></property>
 	</bean>
@@ -24,19 +24,19 @@
 	</bean>
 
 	<!-- Prefix means it will be pooled -->
-	<bean id=":test" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean id=":com.xiaohuan.Test" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>Rod</value></property>
 		<property name="spouse"><ref bean="wife"/></property>
 	</bean>
 
 	<!-- Prefix means it will be thread local -->
-	<bean name="%test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean name="%com.xiaohuan.Test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>Rod</value></property>
 		<property name="spouse"><ref bean="wife"/></property>
 	</bean>
 
 	<!-- Prefix means it will be a prototype target source -->
-	<bean name="!test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean name="!com.xiaohuan.Test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>Rod</value></property>
 		<property name="spouse"><ref bean="wife"/></property>
 	</bean>

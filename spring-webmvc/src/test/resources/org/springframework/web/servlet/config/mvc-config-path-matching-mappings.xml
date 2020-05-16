@@ -14,7 +14,7 @@
     </mvc:annotation-driven>
 
     <mvc:view-controller path="/" view-name="home"/>
-    <mvc:view-controller path="/test" view-name="test"/>
+    <mvc:view-controller path="/com.xiaohuan.Test" view-name="com.xiaohuan.Test"/>
 
     <bean id="pathMatcher" class="org.springframework.web.servlet.config.MvcNamespaceTests$TestPathMatcher" />
     <bean id="pathHelper" class="org.springframework.web.servlet.config.MvcNamespaceTests$TestPathHelper" />

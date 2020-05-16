@@ -12,7 +12,7 @@
 		</property>
 	</bean>
 
-	<bean id="test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean id="com.xiaohuan.Test" scope="prototype" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>Rod</value></property>
 		<property name="spouse"><ref bean="wife"/></property>
 	</bean>

@@ -8,13 +8,13 @@
 		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/jdbc https://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-	<context:component-scan base-package="org.springframework.test.context.junit4.orm"/>
+	<context:component-scan base-package="org.springframework.com.xiaohuan.Test.context.junit4.orm"/>
 
 	<tx:annotation-driven />
 
 	<jdbc:embedded-database id="dataSource" type="HSQL">
-		<jdbc:script location="classpath:/org/springframework/test/context/junit4/orm/db-schema.sql"/>
-		<jdbc:script location="classpath:/org/springframework/test/context/junit4/orm/db-test-data.sql"/>
+		<jdbc:script location="classpath:/org/springframework/com.xiaohuan.Test/context/junit4/orm/db-schema.sql"/>
+		<jdbc:script location="classpath:/org/springframework/com.xiaohuan.Test/context/junit4/orm/db-com.xiaohuan.Test-data.sql"/>
 	</jdbc:embedded-database>
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
@@ -27,8 +27,8 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>org/springframework/test/context/junit4/orm/domain/Person.hbm.xml</value>
-				<value>org/springframework/test/context/junit4/orm/domain/DriversLicense.hbm.xml</value>
+				<value>org/springframework/com.xiaohuan.Test/context/junit4/orm/domain/Person.hbm.xml</value>
+				<value>org/springframework/com.xiaohuan.Test/context/junit4/orm/domain/DriversLicense.hbm.xml</value>
 			</list>
 		</property>
 	</bean>

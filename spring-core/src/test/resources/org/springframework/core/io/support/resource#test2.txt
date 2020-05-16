@@ -1,1 +1,1 @@
-test 2
+com.xiaohuan.Test 2

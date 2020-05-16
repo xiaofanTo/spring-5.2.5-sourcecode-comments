@@ -1,1 +1,1 @@
-Spring Framework test resource content.
+Spring Framework com.xiaohuan.Test resource content.

@@ -6,7 +6,7 @@
 `WebTestClient` is a thin shell around <<web-reactive.adoc#webflux-client, WebClient>>,
 using it to perform requests and exposing a dedicated, fluent API for verifying responses.
 `WebTestClient` binds to a WebFlux application by using a
-<<testing.adoc#mock-objects-web-reactive, mock request and response>>, or it can test any
+<<testing.adoc#mock-objects-web-reactive, mock request and response>>, or it can com.xiaohuan.Test any
 web server over an HTTP connection.
 
 TIP: Kotlin users: See <<languages.adoc#kotlin-webtestclient-issue, this section>>
@@ -27,7 +27,7 @@ a URL to connect to a running server.
 [[webtestclient-controller-config]]
 === Bind to Controller
 
-The following example shows how to create a server setup to test one `@Controller` at a time:
+The following example shows how to create a server setup to com.xiaohuan.Test one `@Controller` at a time:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -152,7 +152,7 @@ are readily available following `bindToServer`. For all others, you need to use
 ----
 	client = WebTestClient.bindToController(new TestController())
 			.configureClient()
-			.baseUrl("/test")
+			.baseUrl("/com.xiaohuan.Test")
 			.build();
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
@@ -160,7 +160,7 @@ are readily available following `bindToServer`. For all others, you need to use
 ----
 	client = WebTestClient.bindToController(TestController())
 			.configureClient()
-			.baseUrl("/test")
+			.baseUrl("/com.xiaohuan.Test")
 			.build()
 ----
 
@@ -214,7 +214,7 @@ Then you can use built-in assertions for the body. The following example shows o
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	import org.springframework.test.web.reactive.server.expectBodyList
+	import org.springframework.com.xiaohuan.Test.web.reactive.server.expectBodyList
 
 	client.get().uri("/persons")
 			.exchange()
@@ -227,7 +227,7 @@ You can also go beyond the built-in assertions and create your own, as the follo
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-    import org.springframework.test.web.reactive.server.expectBody
+    import org.springframework.com.xiaohuan.Test.web.reactive.server.expectBody
 
 	client.get().uri("/persons/1")
 			.exchange()
@@ -263,7 +263,7 @@ You can also exit the workflow and get a result, as follows:
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	import org.springframework.test.web.reactive.server.expectBody
+	import org.springframework.com.xiaohuan.Test.web.reactive.server.expectBody
 
 	val result = client.get().uri("/persons/1")
 			.exchange()
@@ -378,7 +378,7 @@ You can also use https://github.com/jayway/JsonPath[JSONPath] expressions, as fo
 [[webtestclient-stream]]
 === Streaming Responses
 
-To test infinite streams (for example, `"text/event-stream"` or `"application/stream+json"`),
+To com.xiaohuan.Test infinite streams (for example, `"text/event-stream"` or `"application/stream+json"`),
 you need to exit the chained API (by using `returnResult`), immediately after the response status
 and header assertions, as the following example shows:
 
@@ -395,7 +395,7 @@ and header assertions, as the following example shows:
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	import org.springframework.test.web.reactive.server.returnResult
+	import org.springframework.com.xiaohuan.Test.web.reactive.server.returnResult
 
 	val result = client.get().uri("/events")
 			.accept(TEXT_EVENT_STREAM)
@@ -405,8 +405,8 @@ and header assertions, as the following example shows:
 ----
 
 Now you can consume the `Flux<T>`, assert decoded objects as they come, and then
-cancel at some point when test objectives are met. We recommend using the `StepVerifier`
-from the `reactor-test` module to do that, as the following example shows:
+cancel at some point when com.xiaohuan.Test objectives are met. We recommend using the `StepVerifier`
+from the `reactor-com.xiaohuan.Test` module to do that, as the following example shows:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java

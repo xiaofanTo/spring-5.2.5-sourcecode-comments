@@ -10,7 +10,7 @@
 	<jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
 		<jdbc:script location="classpath:org/springframework/jdbc/config/db-drops.sql"/>
 		<jdbc:script location="classpath:org/springframework/jdbc/config/db-schema.sql"/>
-		<jdbc:script location="classpath:org/springframework/jdbc/config/db-test-data.sql"/>
+		<jdbc:script location="classpath:org/springframework/jdbc/config/db-com.xiaohuan.Test-data.sql"/>
 	</jdbc:initialize-database>
 
 </beans>

@@ -885,7 +885,7 @@ the Service Locator pattern.
 Code is cleaner with the DI principle, and decoupling is more effective when objects are
 provided with their dependencies. The object does not look up its dependencies and does
 not know the location or class of the dependencies. As a result, your classes become easier
-to test, particularly when the dependencies are on interfaces or abstract base classes,
+to com.xiaohuan.Test, particularly when the dependencies are on interfaces or abstract base classes,
 which allow for stub or mock implementations to be used in unit tests.
 
 DI exists in two major variants: <<beans-constructor-injection,Constructor-based
@@ -3247,7 +3247,7 @@ identifier can be the session identifier.
 [[beans-factory-scopes-custom-using]]
 ==== Using a Custom Scope
 
-After you write and test one or more custom `Scope` implementations, you need to make
+After you write and com.xiaohuan.Test one or more custom `Scope` implementations, you need to make
 the Spring container aware of your new scopes. The following method is the central
 method to register a new `Scope` with the Spring container:
 
@@ -9228,7 +9228,7 @@ options for using `@Configuration` classes in this kind of "`XML-centric`" situa
 --
 Remember that `@Configuration` classes are ultimately bean definitions in the
 container. In this series examples, we create a `@Configuration` class named `AppConfig` and
-include it within `system-test-config.xml` as a `<bean/>` definition. Because
+include it within `system-com.xiaohuan.Test-config.xml` as a `<bean/>` definition. Because
 `<context:annotation-config/>` is switched on, the container recognizes the
 `@Configuration` annotation and processes the `@Bean` methods declared in `AppConfig`
 properly.
@@ -9274,7 +9274,7 @@ The following example shows an ordinary configuration class in Java:
 	}
 ----
 
-The following example shows part of a sample `system-test-config.xml` file:
+The following example shows part of a sample `system-com.xiaohuan.Test-config.xml` file:
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
@@ -9306,7 +9306,7 @@ jdbc.password=
 .Java
 ----
 	public static void main(String[] args) {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/com/acme/system-test-config.xml");
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/com/acme/system-com.xiaohuan.Test-config.xml");
 		TransferService transferService = ctx.getBean(TransferService.class);
 		// ...
 	}
@@ -9315,14 +9315,14 @@ jdbc.password=
 .Kotlin
 ----
 	fun main() {
-		val ctx = ClassPathXmlApplicationContext("classpath:/com/acme/system-test-config.xml")
+		val ctx = ClassPathXmlApplicationContext("classpath:/com/acme/system-com.xiaohuan.Test-config.xml")
 		val transferService = ctx.getBean<TransferService>()
 		// ...
 	}
 ----
 
 
-NOTE: In `system-test-config.xml` file, the `AppConfig` `<bean/>` does not declare an `id`
+NOTE: In `system-com.xiaohuan.Test-config.xml` file, the `AppConfig` `<bean/>` does not declare an `id`
 element. While it would be acceptable to do so, it is unnecessary, given that no other bean
 ever refers to it, and it is unlikely to be explicitly fetched from the container by name.
 Similarly, the `DataSource` bean is only ever autowired by type, so an explicit bean `id`
@@ -9333,12 +9333,12 @@ is not strictly required.
 --
 Because `@Configuration` is meta-annotated with `@Component`, `@Configuration`-annotated
 classes are automatically candidates for component scanning. Using the same scenario as
-describe in the previous example, we can redefine `system-test-config.xml` to take advantage of component-scanning.
+describe in the previous example, we can redefine `system-com.xiaohuan.Test-config.xml` to take advantage of component-scanning.
 Note that, in this case, we need not explicitly declare
 `<context:annotation-config/>`, because `<context:component-scan/>` enables the same
 functionality.
 
-The following example shows the modified `system-test-config.xml` file:
+The following example shows the modified `system-com.xiaohuan.Test-config.xml` file:
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
@@ -9491,7 +9491,7 @@ performance environment.
 B deployments.
 
 Consider the first use case in a practical application that requires a
-`DataSource`. In a test environment, the configuration might resemble the following:
+`DataSource`. In a com.xiaohuan.Test environment, the configuration might resemble the following:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -9501,7 +9501,7 @@ Consider the first use case in a practical application that requires a
 		return new EmbeddedDatabaseBuilder()
 			.setType(EmbeddedDatabaseType.HSQL)
 			.addScript("my-schema.sql")
-			.addScript("my-test-data.sql")
+			.addScript("my-com.xiaohuan.Test-data.sql")
 			.build();
 	}
 ----
@@ -9513,7 +9513,7 @@ Consider the first use case in a practical application that requires a
 		return EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("my-schema.sql")
-				.addScript("my-test-data.sql")
+				.addScript("my-com.xiaohuan.Test-data.sql")
 				.build()
 	}
 ----
@@ -9577,7 +9577,7 @@ can rewrite the `dataSource` configuration as follows:
 			return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("classpath:com/bank/config/sql/schema.sql")
-				.addScript("classpath:com/bank/config/sql/test-data.sql")
+				.addScript("classpath:com/bank/config/sql/com.xiaohuan.Test-data.sql")
 				.build();
 		}
 	}
@@ -9594,7 +9594,7 @@ can rewrite the `dataSource` configuration as follows:
 			return EmbeddedDatabaseBuilder()
 					.setType(EmbeddedDatabaseType.HSQL)
 					.addScript("classpath:com/bank/config/sql/schema.sql")
-					.addScript("classpath:com/bank/config/sql/test-data.sql")
+					.addScript("classpath:com/bank/config/sql/com.xiaohuan.Test-data.sql")
 					.build()
 		}
 	}
@@ -9695,7 +9695,7 @@ the following example shows:
 			return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("classpath:com/bank/config/sql/schema.sql")
-				.addScript("classpath:com/bank/config/sql/test-data.sql")
+				.addScript("classpath:com/bank/config/sql/com.xiaohuan.Test-data.sql")
 				.build();
 		}
 
@@ -9722,7 +9722,7 @@ the following example shows:
 			return EmbeddedDatabaseBuilder()
 					.setType(EmbeddedDatabaseType.HSQL)
 					.addScript("classpath:com/bank/config/sql/schema.sql")
-					.addScript("classpath:com/bank/config/sql/test-data.sql")
+					.addScript("classpath:com/bank/config/sql/com.xiaohuan.Test-data.sql")
 					.build()
 		}
 
@@ -9771,7 +9771,7 @@ configuration can be rewritten in two XML files, as follows:
 
 		<jdbc:embedded-database id="dataSource">
 			<jdbc:script location="classpath:com/bank/config/sql/schema.sql"/>
-			<jdbc:script location="classpath:com/bank/config/sql/test-data.sql"/>
+			<jdbc:script location="classpath:com/bank/config/sql/com.xiaohuan.Test-data.sql"/>
 		</jdbc:embedded-database>
 	</beans>
 ----
@@ -9804,7 +9804,7 @@ as the following example shows:
 		<beans profile="development">
 			<jdbc:embedded-database id="dataSource">
 				<jdbc:script location="classpath:com/bank/config/sql/schema.sql"/>
-				<jdbc:script location="classpath:com/bank/config/sql/test-data.sql"/>
+				<jdbc:script location="classpath:com/bank/config/sql/com.xiaohuan.Test-data.sql"/>
 			</jdbc:embedded-database>
 		</beans>
 
@@ -9881,7 +9881,7 @@ In addition, you can also declaratively activate profiles through the
 `spring.profiles.active` property, which may be specified through system environment
 variables, JVM system properties, servlet context parameters in `web.xml`, or even as an
 entry in JNDI (see <<beans-property-source-abstraction>>). In integration tests, active
-profiles can be declared by using the `@ActiveProfiles` annotation in the `spring-test`
+profiles can be declared by using the `@ActiveProfiles` annotation in the `spring-com.xiaohuan.Test`
 module (see <<testing.adoc#testcontext-ctx-management-env-profiles,
 context configuration with environment profiles>>).
 

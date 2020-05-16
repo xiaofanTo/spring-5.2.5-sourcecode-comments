@@ -14,18 +14,18 @@
 		<property name="bool" value="true"/>
 		<property name="stringList">
 			<list>
-				<value>#{'test-' + strValue + '-end'}</value>
-				<value>#{'test-' + strValue}</value>
-				<value>#{'test-' + numValue+ '-end'}</value>
-				<value>#{'test-' + numValue}</value>
+				<value>#{'com.xiaohuan.Test-' + strValue + '-end'}</value>
+				<value>#{'com.xiaohuan.Test-' + strValue}</value>
+				<value>#{'com.xiaohuan.Test-' + numValue+ '-end'}</value>
+				<value>#{'com.xiaohuan.Test-' + numValue}</value>
 			</list>
 		</property>
 		<property name="resourceArray">
-			<value>classpath:test.xml</value>
+			<value>classpath:com.xiaohuan.Test.xml</value>
 		</property>
 		<property name="resourceList">
 			<list>
-				<value>classpath:test.xml</value>
+				<value>classpath:com.xiaohuan.Test.xml</value>
 			</list>
 		</property>
 		<property name="resourceMap">

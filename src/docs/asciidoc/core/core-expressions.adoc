@@ -1216,7 +1216,7 @@ following example shows the mathematical operators in use:
 	int two = parser.parseExpression("1 + 1").getValue(Integer.class);  // 2
 
 	String testString = parser.parseExpression(
-			"'test' + ' ' + 'string'").getValue(String.class);  // 'test string'
+			"'com.xiaohuan.Test' + ' ' + 'string'").getValue(String.class);  // 'com.xiaohuan.Test string'
 
 	// Subtraction
 	int four = parser.parseExpression("1 - -3").getValue(Integer.class);  // 4
@@ -1248,7 +1248,7 @@ following example shows the mathematical operators in use:
 	val two = parser.parseExpression("1 + 1").getValue(Int::class.java)  // 2
 
 	val testString = parser.parseExpression(
-			"'test' + ' ' + 'string'").getValue(String::class.java)  // 'test string'
+			"'com.xiaohuan.Test' + ' ' + 'string'").getValue(String::class.java)  // 'com.xiaohuan.Test string'
 
 	// Subtraction
 	val four = parser.parseExpression("1 - -3").getValue(Int::class.java)  // 4

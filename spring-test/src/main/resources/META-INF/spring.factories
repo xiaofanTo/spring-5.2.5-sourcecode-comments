@@ -1,16 +1,16 @@
 # Default TestExecutionListeners for the Spring TestContext Framework
 #
-org.springframework.test.context.TestExecutionListener = \
-	org.springframework.test.context.web.ServletTestExecutionListener,\
-	org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener,\
-	org.springframework.test.context.support.DependencyInjectionTestExecutionListener,\
-	org.springframework.test.context.support.DirtiesContextTestExecutionListener,\
-	org.springframework.test.context.transaction.TransactionalTestExecutionListener,\
-	org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener,\
-	org.springframework.test.context.event.EventPublishingTestExecutionListener
+org.springframework.com.xiaohuan.Test.context.TestExecutionListener = \
+	org.springframework.com.xiaohuan.Test.context.web.ServletTestExecutionListener,\
+	org.springframework.com.xiaohuan.Test.context.support.DirtiesContextBeforeModesTestExecutionListener,\
+	org.springframework.com.xiaohuan.Test.context.support.DependencyInjectionTestExecutionListener,\
+	org.springframework.com.xiaohuan.Test.context.support.DirtiesContextTestExecutionListener,\
+	org.springframework.com.xiaohuan.Test.context.transaction.TransactionalTestExecutionListener,\
+	org.springframework.com.xiaohuan.Test.context.jdbc.SqlScriptsTestExecutionListener,\
+	org.springframework.com.xiaohuan.Test.context.event.EventPublishingTestExecutionListener
 
 # Default ContextCustomizerFactory implementations for the Spring TestContext Framework
 #
-org.springframework.test.context.ContextCustomizerFactory = \
-	org.springframework.test.context.web.socket.MockServerContainerContextCustomizerFactory,\
-	org.springframework.test.context.support.DynamicPropertiesContextCustomizerFactory
+org.springframework.com.xiaohuan.Test.context.ContextCustomizerFactory = \
+	org.springframework.com.xiaohuan.Test.context.web.socket.MockServerContainerContextCustomizerFactory,\
+	org.springframework.com.xiaohuan.Test.context.support.DynamicPropertiesContextCustomizerFactory

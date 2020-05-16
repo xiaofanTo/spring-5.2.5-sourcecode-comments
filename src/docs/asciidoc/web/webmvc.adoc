@@ -1806,9 +1806,9 @@ TIP: `MediaType` provides constants for commonly used media types, such as
 ==== Parameters, headers
 [.small]#<<web-reactive.adoc#webflux-ann-requestmapping-params-and-headers, WebFlux>>#
 
-You can narrow request mappings based on request parameter conditions. You can test for the
+You can narrow request mappings based on request parameter conditions. You can com.xiaohuan.Test for the
 presence of a request parameter (`myParam`), for the absence of one (`!myParam`), or for a
-specific value (`myParam=myValue`). The following example shows how to test for a specific value:
+specific value (`myParam=myValue`). The following example shows how to com.xiaohuan.Test for a specific value:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -4675,7 +4675,7 @@ for protecting web applications from malicious exploits. See the Spring Security
 reference documentation, including:
 
 * {doc-spring-security}/html5/#mvc[Spring MVC Security]
-* {doc-spring-security}/html5/#test-mockmvc[Spring MVC Test Support]
+* {doc-spring-security}/html5/#com.xiaohuan.Test-mockmvc[Spring MVC com.xiaohuan.Test Support]
 * {doc-spring-security}/html5/#csrf[CSRF protection]
 * {doc-spring-security}/html5/#headers[Security Response Headers]
 

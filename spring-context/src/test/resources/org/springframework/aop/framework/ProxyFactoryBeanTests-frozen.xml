@@ -4,7 +4,7 @@
 <beans>
 
 	<!-- Simple target -->
-	<bean id="test" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean id="com.xiaohuan.Test" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>custom</value></property>
 		<property name="age"><value>666</value></property>
 	</bean>
@@ -18,7 +18,7 @@
 	>
 		<property name="proxyInterfaces"><value>org.springframework.beans.testfixture.beans.ITestBean</value></property>
 
-		<property name="target"><ref bean="test"/></property>
+		<property name="target"><ref bean="com.xiaohuan.Test"/></property>
 		<property name="interceptorNames"><value>debugInterceptor</value></property>
 		<property name="frozen"><value>true</value></property>
 		<property name="optimize"><value>true</value></property>

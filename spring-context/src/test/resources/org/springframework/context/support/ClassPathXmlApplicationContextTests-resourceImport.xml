@@ -5,13 +5,13 @@
 
 	<bean id="resource1" class="org.springframework.tests.sample.beans.ResourceTestBean">
 		<property name="resource">
-			<value>test.properties</value>
+			<value>com.xiaohuan.Test.properties</value>
 		</property>
 		<property name="contextResource">
 			<value>testBeans.properties</value>
 		</property>
 		<property name="inputStream">
-			<value>classpath:org/springframework/beans/factory/xml/test.properties</value>
+			<value>classpath:org/springframework/beans/factory/xml/com.xiaohuan.Test.properties</value>
 		</property>
 	</bean>
 

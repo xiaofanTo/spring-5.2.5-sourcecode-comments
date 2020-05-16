@@ -4,7 +4,7 @@
 
 <hibernate-mapping auto-import="true" default-lazy="false">
 
-	<class name="org.springframework.test.context.junit4.orm.domain.DriversLicense" table="drivers_license">
+	<class name="org.springframework.com.xiaohuan.Test.context.junit4.orm.domain.DriversLicense" table="drivers_license">
 		<id name="id" column="id">
 			<generator class="identity" />
 		</id>

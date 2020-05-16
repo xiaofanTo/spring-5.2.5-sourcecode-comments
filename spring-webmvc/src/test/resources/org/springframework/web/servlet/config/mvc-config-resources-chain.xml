@@ -28,7 +28,7 @@
 	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/, [charset=ISO-8859-1]${location}">
-		<mvc:resource-chain resource-cache="true" cache-manager="resourceCache" cache-name="test-resource-cache">
+		<mvc:resource-chain resource-cache="true" cache-manager="resourceCache" cache-name="com.xiaohuan.Test-resource-cache">
 			<mvc:resolvers>
 				<mvc:version-resolver>
 					<mvc:fixed-version-strategy version="abc" patterns="/**/*.js"/>

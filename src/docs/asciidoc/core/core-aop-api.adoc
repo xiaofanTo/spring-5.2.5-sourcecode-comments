@@ -100,9 +100,9 @@ The `MethodMatcher` interface is normally more important. The complete interface
 	}
 ----
 
-The `matches(Method, Class)` method is used to test whether this pointcut ever
+The `matches(Method, Class)` method is used to com.xiaohuan.Test whether this pointcut ever
 matches a given method on a target class. This evaluation can be performed when an AOP
-proxy is created to avoid the need for a test on every method invocation. If the
+proxy is created to avoid the need for a com.xiaohuan.Test on every method invocation. If the
 two-argument `matches` method returns `true` for a given method, and the `isRuntime()` method
 for the MethodMatcher returns `true`, the three-argument matches method is invoked on
 every method invocation. This lets a pointcut look at the arguments passed to the
@@ -726,7 +726,7 @@ The `getInterfaces()` method returns the interfaces introduced by this advisor.
 The `validateInterfaces()` method is used internally to see whether or not the
 introduced interfaces can be implemented by the configured `IntroductionInterceptor`.
 
-Consider an example from the Spring test suite and suppose we want to
+Consider an example from the Spring com.xiaohuan.Test suite and suppose we want to
 introduce the following interface to one or more objects:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
@@ -1160,7 +1160,7 @@ to prevent users of the application context from obtaining a reference to the un
 object or need to avoid any ambiguity with Spring IoC autowiring. There is also,
 arguably, an advantage in that the `ProxyFactoryBean` definition is self-contained.
 However, there are times when being able to obtain the un-advised target from the
-factory might actually be an advantage (for example, in certain test scenarios).
+factory might actually be an advantage (for example, in certain com.xiaohuan.Test scenarios).
 
 
 
@@ -1465,8 +1465,8 @@ manipulating its advice:
 NOTE: It is questionable whether it is advisable (no pun intended) to modify advice on a
 business object in production, although there are, no doubt, legitimate usage cases.
 However, it can be very useful in development (for example, in tests). We have sometimes
-found it very useful to be able to add test code in the form of an interceptor or other
-advice, getting inside a method invocation that we want to test. (For example, the advice can
+found it very useful to be able to add com.xiaohuan.Test code in the form of an interceptor or other
+advice, getting inside a method invocation that we want to com.xiaohuan.Test. (For example, the advice can
 get inside a transaction created for that method, perhaps to run SQL to check that
 a database was correctly updated, before marking the transaction for roll back.)
 

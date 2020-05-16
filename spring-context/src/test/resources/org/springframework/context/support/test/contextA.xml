@@ -7,7 +7,7 @@
 
 	<import resource="import1.xml"/>
 
-	<import resource="classpath:org/springframework/context/support/test/*/import2.xml"/>
+	<import resource="classpath:org/springframework/context/support/com.xiaohuan.Test/*/import2.xml"/>
 
 	<context:property-override location="org/springframework/context/support/override.properties"/>
 
@@ -16,11 +16,11 @@
 	<bean class="org.springframework.context.support.FactoryBeanAndApplicationListener"/>
 
 	<bean name="service" class="org.springframework.context.support.Service">
-		<property name="resources" value="/org/springframework/context/support/test/context*.xml"/>
+		<property name="resources" value="/org/springframework/context/support/com.xiaohuan.Test/context*.xml"/>
 	</bean>
 
 	<bean name="service2" class="org.springframework.context.support.Service" autowire="byName" depends-on="service">
-		<property name="resources" value="/org/springframework/context/support/test/context*.xml"/>
+		<property name="resources" value="/org/springframework/context/support/com.xiaohuan.Test/context*.xml"/>
 	</bean>
 
 	<bean name="autowiredService" class="org.springframework.context.support.AutowiredService" autowire="byName"/>

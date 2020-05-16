@@ -7,7 +7,7 @@
 
     <mvc:annotation-driven />
 
-    <bean class="org.springframework.test.web.servlet.samples.context.PersonController">
+    <bean class="org.springframework.com.xiaohuan.Test.web.servlet.samples.context.PersonController">
         <constructor-arg ref="personDao"/>
     </bean>
 

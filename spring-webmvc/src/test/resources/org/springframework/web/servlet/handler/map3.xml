@@ -19,8 +19,8 @@
 				/pathmatching??.html=mainController
 				/*.jsp=mainController
 				/administrator/another/bla.xml=mainController
-				/*test*.jpeg=mainController
-				/*/test.jpeg=mainController
+				/*com.xiaohuan.Test*.jpeg=mainController
+				/*/com.xiaohuan.Test.jpeg=mainController
 				/outofpattern*yeah=mainController
 				/anotherTest*=mainController
 				/stillAnotherTestYeah=mainController
@@ -31,7 +31,7 @@
 				/reservation.html=mainController
 				/payment.html=mainController
 				/confirmation.html=mainController
-				/test%26t%20est/path%26m%20atching.html=mainController
+				/com.xiaohuan.Test%26t%20est/path%26m%20atching.html=mainController
 				*=starController
 			</value>
 		</property>

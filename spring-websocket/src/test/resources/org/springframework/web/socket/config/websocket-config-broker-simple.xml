@@ -25,7 +25,7 @@
 			</websocket:handshake-interceptors>
 		</websocket:stomp-endpoint>
 
-		<websocket:stomp-endpoint path="/test,/sockjs" allowed-origins="https://mydomain3.com,https://mydomain4.com">
+		<websocket:stomp-endpoint path="/com.xiaohuan.Test,/sockjs" allowed-origins="https://mydomain3.com,https://mydomain4.com">
 			<websocket:handshake-handler ref="myHandler"/>
 			<websocket:handshake-interceptors>
 				<bean class="org.springframework.web.socket.config.FooTestInterceptor"/>

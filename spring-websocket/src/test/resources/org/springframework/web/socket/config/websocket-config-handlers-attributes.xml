@@ -7,7 +7,7 @@
 
 	<websocket:handlers order="2" allowed-origins="https://mydomain1.example, https://mydomain2.example">
 		<websocket:mapping path="/foo" handler="fooHandler"/>
-		<websocket:mapping path="/test" handler="testHandler"/>
+		<websocket:mapping path="/com.xiaohuan.Test" handler="testHandler"/>
 		<websocket:handshake-handler ref="testHandshakeHandler"/>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.config.FooTestInterceptor"/>

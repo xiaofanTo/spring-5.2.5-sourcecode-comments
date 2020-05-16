@@ -11,7 +11,7 @@
 				<entry key="test2"><ref bean="testBean"/></entry>
 			</map>
 		</property>
-		<property name="location"><value>test</value></property>
+		<property name="location"><value>com.xiaohuan.Test</value></property>
 	</bean>
 
 	<bean id="example2" class="org.springframework.web.servlet.view.JstlView">

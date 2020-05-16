@@ -4,6 +4,6 @@
 
 	<import resource="common-config.xml" />
 
-	<bean class="org.springframework.test.context.transaction.ejb.dao.RequiresNewEjbTxTestEntityDao" />
+	<bean class="org.springframework.com.xiaohuan.Test.context.transaction.ejb.dao.RequiresNewEjbTxTestEntityDao" />
 
 </beans>

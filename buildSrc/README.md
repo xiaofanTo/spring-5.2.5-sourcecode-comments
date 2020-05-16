@@ -9,10 +9,10 @@ They are declared in the `build.gradle` file in this folder.
 
 The `org.springframework.build.compile` plugin applies the Java compiler conventions to the build.
 By default, the build compiles sources with Java `1.8` source and target compatibility.
-You can test a different source compatibility version on the CLI with a project property like:
+You can com.xiaohuan.Test a different source compatibility version on the CLI with a project property like:
 
 ```
-./gradlew test -PjavaSourceVersion=11
+./gradlew com.xiaohuan.Test -PjavaSourceVersion=11
 ```
 
 ## Build Plugins

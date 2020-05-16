@@ -1601,7 +1601,7 @@ TIP: `MediaType` provides constants for commonly used media types -- e.g.
 ==== Parameters and Headers
 [.small]#<<web.adoc#mvc-ann-requestmapping-params-and-headers, Web MVC>>#
 
-You can narrow request mappings based on query parameter conditions. You can test for the
+You can narrow request mappings based on query parameter conditions. You can com.xiaohuan.Test for the
 presence of a query parameter (`myParam`), for its absence (`!myParam`), or for a
 specific value (`myParam=myValue`). The following examples tests for a parameter with a value:
 
@@ -3430,7 +3430,7 @@ for protecting web applications from malicious exploits. See the Spring Security
 reference documentation, including:
 
 * {doc-spring-security}/html5/#jc-webflux[WebFlux Security]
-* {doc-spring-security}/html5/#test-webflux[WebFlux Testing Support]
+* {doc-spring-security}/html5/#com.xiaohuan.Test-webflux[WebFlux Testing Support]
 * {doc-spring-security}/html5/#csrf[CSRF Protection]
 * {doc-spring-security}/html5/#headers[Security Response Headers]
 

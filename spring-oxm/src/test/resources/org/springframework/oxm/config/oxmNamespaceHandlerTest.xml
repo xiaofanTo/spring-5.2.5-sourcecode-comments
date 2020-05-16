@@ -5,11 +5,11 @@
        http://www.springframework.org/schema/oxm https://www.springframework.org/schema/oxm/spring-oxm.xsd">
 
 	<!-- JAXB2 -->
-	<oxm:jaxb2-marshaller id="jaxb2ContextPathMarshaller" context-path="org.springframework.oxm.jaxb.test"/>
+	<oxm:jaxb2-marshaller id="jaxb2ContextPathMarshaller" context-path="org.springframework.oxm.jaxb.com.xiaohuan.Test"/>
 
 	<oxm:jaxb2-marshaller id="jaxb2ClassesMarshaller">
-		<oxm:class-to-be-bound name="org.springframework.oxm.jaxb.test.Flights"/>
-		<oxm:class-to-be-bound name="org.springframework.oxm.jaxb.test.FlightType"/>
+		<oxm:class-to-be-bound name="org.springframework.oxm.jaxb.com.xiaohuan.Test.Flights"/>
+		<oxm:class-to-be-bound name="org.springframework.oxm.jaxb.com.xiaohuan.Test.FlightType"/>
 	</oxm:jaxb2-marshaller>
 
 </beans>

@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/websocket https://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 	<websocket:handlers>
-		<websocket:mapping path="/test" handler="testHandler"/>
+		<websocket:mapping path="/com.xiaohuan.Test" handler="testHandler"/>
 		<websocket:mapping path="/foo/" handler="fooHandler"/>
 		<websocket:handshake-handler ref="testHandshakeHandler"/>
 		<websocket:handshake-interceptors>

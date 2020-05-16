@@ -4,11 +4,11 @@
 <beans>
 
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename"><value>org/springframework/web/context/WEB-INF/test-messages</value></property>
+		<property name="basename"><value>org/springframework/web/context/WEB-INF/com.xiaohuan.Test-messages</value></property>
 	</bean>
 
 	<bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
-		<property name="basenamePrefix"><value>org/springframework/web/context/WEB-INF/test-</value></property>
+		<property name="basenamePrefix"><value>org/springframework/web/context/WEB-INF/com.xiaohuan.Test-</value></property>
 	</bean>
 
 	<bean id="aca" class="org.springframework.context.testfixture.beans.ACATester"/>

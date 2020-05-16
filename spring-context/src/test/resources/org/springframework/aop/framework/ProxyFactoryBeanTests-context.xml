@@ -4,7 +4,7 @@
 <beans>
 
 	<!-- Simple target -->
-	<bean id="test" class="org.springframework.beans.testfixture.beans.TestBean">
+	<bean id="com.xiaohuan.Test" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>custom</value></property>
 		<property name="age"><value>666</value></property>
 	</bean>
@@ -13,7 +13,7 @@
 
 	<bean id="test1" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="interfaces"><value>org.springframework.beans.testfixture.beans.ITestBean</value></property>
-		<property name="target"><ref bean="test"/></property>
+		<property name="target"><ref bean="com.xiaohuan.Test"/></property>
 		<property name="interceptorNames"><value>debugInterceptor</value></property>
 	</bean>
 
@@ -30,10 +30,10 @@
 		<property name="interfaces"><value>org.springframework.beans.testfixture.beans.ITestBean</value></property>
 
 		<!--
-			Note that "test" is a target. An InvokerInterceptor
+			Note that "com.xiaohuan.Test" is a target. An InvokerInterceptor
 			will be added automatically.
 		-->
-		<property name="interceptorNames"><value>global*,test</value></property>
+		<property name="interceptorNames"><value>global*,com.xiaohuan.Test</value></property>
 
 	</bean>
 
@@ -44,7 +44,7 @@
 			</value>
 		</property>
 		<property name="singleton"><value>false</value></property>
-		<property name="interceptorNames"><value>test</value></property>
+		<property name="interceptorNames"><value>com.xiaohuan.Test</value></property>
 	</bean>
 
 	<bean id="test2" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -54,19 +54,19 @@
 			</value>
 		</property>
 		<property name="singleton"><value>false</value></property>
-		<property name="targetName"><value>test</value></property>
+		<property name="targetName"><value>com.xiaohuan.Test</value></property>
 	</bean>
 
 	<bean id="test3" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="autodetectInterfaces"><value>true</value></property>
-		<property name="target"><ref bean="test"/></property>
+		<property name="target"><ref bean="com.xiaohuan.Test"/></property>
 		<property name="interceptorNames"><value>debugInterceptor</value></property>
 	</bean>
 
 	<bean id="test4" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="autodetectInterfaces"><value>true</value></property>
 		<property name="singleton"><value>false</value></property>
-		<property name="targetName"><value>test</value></property>
+		<property name="targetName"><value>com.xiaohuan.Test</value></property>
 	</bean>
 
 	<bean id="testCircle1" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -94,13 +94,13 @@
 	<bean id="pointcuts" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="proxyInterfaces"><value>org.springframework.beans.testfixture.beans.ITestBean</value></property>
 		<property name="interceptorNames"><value>pointcutForVoid</value></property>
-		<property name="targetName"><value>test</value></property>
+		<property name="targetName"><value>com.xiaohuan.Test</value></property>
 	</bean>
 
 	<bean id="pointcutForVoid" class="org.springframework.aop.framework.ProxyFactoryBeanTests$PointcutForVoid"/>
 
 	<!--
-		Invalid test for global pointcuts.
+		Invalid com.xiaohuan.Test for global pointcuts.
 		Must have target because there are no interceptors.
 	-->
 	<!--
@@ -115,7 +115,7 @@
 			class="org.springframework.aop.framework.ProxyFactoryBean"
 	>
 		<property name="proxyInterfaces"><value>org.springframework.beans.testfixture.beans.ITestBean</value></property>
-		<property name="target"><ref bean="test"/></property>
+		<property name="target"><ref bean="com.xiaohuan.Test"/></property>
 
 	</bean>
 	-->
@@ -135,7 +135,7 @@
 	-->
 	<bean id="global_aspectInterface" class="org.springframework.aop.framework.ProxyFactoryBeanTests$GlobalIntroductionAdvice"/>
 
-	<bean id="prototypeLockMixinAdvisor" class="test.mixin.LockMixinAdvisor" scope="prototype"/>
+	<bean id="prototypeLockMixinAdvisor" class="com.xiaohuan.Test.mixin.LockMixinAdvisor" scope="prototype"/>
 
 	<bean id="prototypeTestBean" class="org.springframework.beans.testfixture.beans.TestBean" scope="prototype"/>
 
@@ -150,13 +150,13 @@
 		</property>
 	</bean>
 
-	<bean id="prototypeLockMixinInterceptor" class="test.mixin.LockMixin" scope="prototype"/>
+	<bean id="prototypeLockMixinInterceptor" class="com.xiaohuan.Test.mixin.LockMixin" scope="prototype"/>
 
 	<bean id="prototypeTestBeanProxySingletonTarget" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="interfaces">
 			<list>
 				<value>org.springframework.beans.testfixture.beans.ITestBean</value>
-				<value>test.mixin.Lockable</value>
+				<value>com.xiaohuan.Test.mixin.Lockable</value>
 			</list>
 		</property>
 		<property name="singleton"><value>false</value></property>

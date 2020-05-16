@@ -18,8 +18,8 @@
 		p:data-source-ref="dataSource" />
 
 	<jdbc:embedded-database id="dataSource">
-		<jdbc:script location="classpath:/org/springframework/test/jdbc/schema.sql" />
-		<jdbc:script location="classpath:/org/springframework/test/jdbc/data.sql" />
+		<jdbc:script location="classpath:/org/springframework/com.xiaohuan.Test/jdbc/schema.sql" />
+		<jdbc:script location="classpath:/org/springframework/com.xiaohuan.Test/jdbc/data.sql" />
 	</jdbc:embedded-database>
 
 </beans>

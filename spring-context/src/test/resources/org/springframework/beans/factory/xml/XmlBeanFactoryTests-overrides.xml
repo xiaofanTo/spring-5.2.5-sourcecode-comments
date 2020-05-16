@@ -9,7 +9,7 @@
 	</bean>
 
 	<!--
-		Test that overrides work on an inherited method
+		com.xiaohuan.Test that overrides work on an inherited method
 	-->
 	<bean id="overrideInheritedMethod" class="org.springframework.beans.factory.xml.OverrideOneMethodSubclass">
 		<lookup-method name="getPrototypeDependency" bean="jenny"/>
@@ -17,7 +17,7 @@
 	</bean>
 
 	<!--
-		We can use this to test the construction cost of beans with method overrides
+		We can use this to com.xiaohuan.Test the construction cost of beans with method overrides
 	-->
 	<bean id="overrideOnPrototype" scope="prototype"
 			class="org.springframework.beans.factory.xml.OverrideOneMethod">

@@ -25,7 +25,7 @@ The bulk of this chapter is concerned with describing the dynamic language suppo
 detail. Before diving into all of the ins and outs of the dynamic language support,
 we look at a quick example of a bean defined in a dynamic language. The dynamic
 language for this first bean is Groovy. (The basis of this example was taken from the
-Spring test suite. If you want to see equivalent examples in any of the other
+Spring com.xiaohuan.Test suite. If you want to see equivalent examples in any of the other
 supported languages, take a look at the source code).
 
 The next example shows the `Messenger` interface, which the Groovy bean is going to
@@ -153,7 +153,7 @@ this chapter.
 
 The steps involved in using dynamic-language-backed beans are as follows:
 
-. Write the test for the dynamic language source code (naturally).
+. Write the com.xiaohuan.Test for the dynamic language source code (naturally).
 . Then write the dynamic language source code itself.
 . Define your dynamic-language-backed beans by using the appropriate `<lang:language/>`
   element in the XML configuration (you can define such beans programmatically by
@@ -429,7 +429,7 @@ them available to Java developers using a Java-like syntax.`"
 
 If you have read this chapter straight from the top, you have already
 <<dynamic-language-a-first-example, seen an example>> of a Groovy-dynamic-language-backed
-bean. Now consider another example (again using an example from the Spring test suite):
+bean. Now consider another example (again using an example from the Spring com.xiaohuan.Test suite):
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]

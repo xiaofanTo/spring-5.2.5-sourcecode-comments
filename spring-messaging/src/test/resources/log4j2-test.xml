@@ -10,7 +10,7 @@
 		<Logger name="org.apache.activemq" level="info" />
 		<Logger name="reactor" level="info" />
 		<Logger name="io.netty" level="info" />
-		<!-- Enable TRACE level to chase integration test issues on CI servers -->
+		<!-- Enable TRACE level to chase integration com.xiaohuan.Test issues on CI servers -->
 <!--
 		<Logger name="org.springframework.messaging.simp.stomp" level="trace" />
 -->

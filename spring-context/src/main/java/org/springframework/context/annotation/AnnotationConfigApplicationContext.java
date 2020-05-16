@@ -63,7 +63,13 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
+		/**
+		 * 初始化读取器  用于解析注解的Bean
+		 */
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		/**
+		 * 初始化扫描器  用于扫描xml文件
+		 */
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -84,8 +90,12 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
+		//1.调用父类构造方法
+		//2.调用自身无参构造方法 初始化注解读取器和xml扫描器
 		this();
+		//3.注册Configuration类
 		register(componentClasses);
+		//4.重启刷新IOC容器
 		refresh();
 	}
 
@@ -151,6 +161,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Register one or more component classes to be processed.
 	 * <p>Note that {@link #refresh()} must be called in order for the context
 	 * to fully process the new classes.
+	 *
+	 * 1.可以注册一个配置类
+	 * 2.可以注册一个Bean
 	 * @param componentClasses one or more component classes &mdash; for example,
 	 * {@link Configuration @Configuration} classes
 	 * @see #scan(String...)

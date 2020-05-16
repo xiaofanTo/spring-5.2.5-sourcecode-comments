@@ -7,7 +7,7 @@
 
 	<jdbc:embedded-database id="dataSource" type="HSQL" separator="@@">
 		<jdbc:script location="classpath:org/springframework/jdbc/config/db-schema.sql" separator=";"/>
-		<jdbc:script location="classpath:org/springframework/jdbc/config/db-test-data-endings.sql"/>
+		<jdbc:script location="classpath:org/springframework/jdbc/config/db-com.xiaohuan.Test-data-endings.sql"/>
 	</jdbc:embedded-database>
 
 </beans>

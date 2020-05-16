@@ -694,7 +694,7 @@ The controller would look no different for the Java and XML configurations, as t
 	public class SampleController {
 
 		@GetMapping("/sample")
-		public String test(Model model) {
+		public String com.xiaohuan.Test(Model model) {
 			model.addAttribute("title", "Sample title");
 			model.addAttribute("body", "Sample body");
 			return "template";
@@ -708,7 +708,7 @@ The controller would look no different for the Java and XML configurations, as t
 	class SampleController {
 
 		@GetMapping("/sample")
-		fun test(model: Model): String {
+		fun com.xiaohuan.Test(model: Model): String {
 			model["title"] = "Sample title"
 			model["body"] = "Sample body"
 			return "template"
@@ -820,8 +820,8 @@ template engine configuration, for example). The following example shows how to 
 ----
 
 Check out the Spring Framework unit tests,
-https://github.com/spring-projects/spring-framework/tree/master/spring-webmvc/src/test/java/org/springframework/web/servlet/view/script[Java], and
-https://github.com/spring-projects/spring-framework/tree/master/spring-webmvc/src/test/resources/org/springframework/web/servlet/view/script[resources],
+https://github.com/spring-projects/spring-framework/tree/master/spring-webmvc/src/com.xiaohuan.Test/java/org/springframework/web/servlet/view/script[Java], and
+https://github.com/spring-projects/spring-framework/tree/master/spring-webmvc/src/com.xiaohuan.Test/resources/org/springframework/web/servlet/view/script[resources],
 for more configuration examples.
 
 

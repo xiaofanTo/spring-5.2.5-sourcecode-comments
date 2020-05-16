@@ -188,7 +188,7 @@ This is primarily a service provider interface (SPI), although you can use it
 necessary. It is not tied to a lookup strategy, such as JNDI.
 `PlatformTransactionManager` implementations are defined like any other object (or bean)
 in the Spring Framework IoC container. This benefit alone makes Spring Framework
-transactions a worthwhile abstraction, even when you work with JTA. You can test transactional code
+transactions a worthwhile abstraction, even when you work with JTA. You can com.xiaohuan.Test transactional code
 much more easily than if it used JTA directly.
 
 Again, in keeping with Spring's philosophy, the `TransactionException` that can be thrown
@@ -766,7 +766,7 @@ that is created from the `fooService` bean definition. The proxy is configured w
 the transactional advice so that, when an appropriate method is invoked on the proxy,
 a transaction is started, suspended, marked as read-only, and so on, depending on the
 transaction configuration associated with that method. Consider the following program
-that test drives the configuration shown earlier:
+that com.xiaohuan.Test drives the configuration shown earlier:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -3022,7 +3022,7 @@ The following example shows the corresponding XML configuration:
 			https://www.springframework.org/schema/context/spring-context.xsd">
 
 		<!-- Scans within the base package of the application for @Component classes to configure as beans -->
-		<context:component-scan base-package="org.springframework.docs.test" />
+		<context:component-scan base-package="org.springframework.docs.com.xiaohuan.Test" />
 
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 			<property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -3596,7 +3596,7 @@ part of the JDBC specification and is a generalized connection factory. It lets 
 container or a framework hide connection pooling and transaction management issues
 from the application code. As a developer, you need not know details about how to
 connect to the database. That is the responsibility of the administrator who sets up
-the datasource. You most likely fill both roles as you develop and test code, but you
+the datasource. You most likely fill both roles as you develop and com.xiaohuan.Test code, but you
 do not necessarily have to know how the production data source is configured.
 
 When you use Spring's JDBC layer, you can obtain a data source from JNDI, or you can
@@ -3728,7 +3728,7 @@ persistence tools), you should set the `suppressClose` property to `true`. This 
 close-suppressing proxy that wraps the physical connection. Note that you can no longer
 cast this to a native Oracle `Connection` or a similar object.
 
-`SingleConnectionDataSource` is primarily a test class. For example, it enables easy testing of code outside an
+`SingleConnectionDataSource` is primarily a com.xiaohuan.Test class. For example, it enables easy testing of code outside an
 application server, in conjunction with a simple JNDI environment. In contrast to
 `DriverManagerDataSource`, it reuses the same connection all the time, avoiding
 excessive creation of physical connections.
@@ -3742,11 +3742,11 @@ The `DriverManagerDataSource` class is an implementation of the standard `DataSo
 interface that configures a plain JDBC driver through bean properties and returns a new
 `Connection` every time.
 
-This implementation is useful for test and stand-alone environments outside of a Java EE
+This implementation is useful for com.xiaohuan.Test and stand-alone environments outside of a Java EE
 container, either as a `DataSource` bean in a Spring IoC container or in conjunction
 with a simple JNDI environment. Pool-assuming `Connection.close()` calls
 close the connection, so any `DataSource`-aware persistence code should work. However,
-using JavaBean-style connection pools (such as `commons-dbcp`) is so easy, even in a test
+using JavaBean-style connection pools (such as `commons-dbcp`) is so easy, even in a com.xiaohuan.Test
 environment, that it is almost always preferable to use such a connection pool over
 `DriverManagerDataSource`.
 
@@ -5586,7 +5586,7 @@ or `ArrayDescriptor` instances. The following example creates a `StructDescripto
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	final TestItem testItem = new TestItem(123L, "A test item",
+	final TestItem testItem = new TestItem(123L, "A com.xiaohuan.Test item",
 			new SimpleDateFormat("yyyy-M-d").parse("2010-12-31"));
 
 	SqlTypeValue value = new AbstractSqlTypeValue() {
@@ -5605,7 +5605,7 @@ or `ArrayDescriptor` instances. The following example creates a `StructDescripto
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	val (id, description, expirationDate) = TestItem(123L, "A test item",
+	val (id, description, expirationDate) = TestItem(123L, "A com.xiaohuan.Test item",
 			SimpleDateFormat("yyyy-M-d").parse("2010-12-31"))
 
 	val value = object : AbstractSqlTypeValue() {
@@ -5685,12 +5685,12 @@ If you want to expose an embedded database instance as a bean in a Spring
 ----
 	<jdbc:embedded-database id="dataSource" generate-name="true">
 		<jdbc:script location="classpath:schema.sql"/>
-		<jdbc:script location="classpath:test-data.sql"/>
+		<jdbc:script location="classpath:com.xiaohuan.Test-data.sql"/>
 	</jdbc:embedded-database>
 ----
 
 The preceding configuration creates an embedded HSQL database that is populated with SQL from
-the `schema.sql` and `test-data.sql` resources in the root of the classpath. In addition, as
+the `schema.sql` and `com.xiaohuan.Test-data.sql` resources in the root of the classpath. In addition, as
 a best practice, the embedded database is assigned a uniquely generated name. The
 embedded database is made available to the Spring container as a bean of type
 `javax.sql.DataSource` that can then be injected into data access objects as needed.
@@ -5701,7 +5701,7 @@ embedded database is made available to the Spring container as a bean of type
 
 The `EmbeddedDatabaseBuilder` class provides a fluent API for constructing an embedded
 database programmatically. You can use this when you need to create an embedded database in a
-stand-alone environment or in a stand-alone integration test, as in the following example:
+stand-alone environment or in a stand-alone integration com.xiaohuan.Test, as in the following example:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -5818,14 +5818,14 @@ call the `setType(EmbeddedDatabaseType)` method with `EmbeddedDatabaseType.DERBY
 [[jdbc-embedded-database-dao-testing]]
 ==== Testing Data Access Logic with an Embedded Database
 
-Embedded databases provide a lightweight way to test data access code. The next example is a
-data access integration test template that uses an embedded database. Using such a template
-can be useful for one-offs when the embedded database does not need to be reused across test
-classes. However, if you wish to create an embedded database that is shared within a test suite,
+Embedded databases provide a lightweight way to com.xiaohuan.Test data access code. The next example is a
+data access integration com.xiaohuan.Test template that uses an embedded database. Using such a template
+can be useful for one-offs when the embedded database does not need to be reused across com.xiaohuan.Test
+classes. However, if you wish to create an embedded database that is shared within a com.xiaohuan.Test suite,
 consider using the <<testing.adoc#testcontext-framework, Spring TestContext Framework>> and
 configuring the embedded database as a bean in the Spring `ApplicationContext` as described
 in <<jdbc-embedded-database-xml>> and <<jdbc-embedded-database-java>>. The following listing
-shows the test template:
+shows the com.xiaohuan.Test template:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -5844,7 +5844,7 @@ shows the test template:
 					.build();
 		}
 
-		@Test
+		@com.xiaohuan.Test
 		public void testDataAccess() {
 			JdbcTemplate template = new JdbcTemplate(db);
 			template.query( /* ... */ );
@@ -5874,7 +5874,7 @@ shows the test template:
 					.build()
 		}
 
-		@Test
+		@com.xiaohuan.Test
 		fun testDataAccess() {
 			val template = JdbcTemplate(db)
 			template.query( /* ... */)
@@ -5891,11 +5891,11 @@ shows the test template:
 [[jdbc-embedded-database-unique-names]]
 ==== Generating Unique Names for Embedded Databases
 
-Development teams often encounter errors with embedded databases if their test suite
+Development teams often encounter errors with embedded databases if their com.xiaohuan.Test suite
 inadvertently attempts to recreate additional instances of the same database. This can
 happen quite easily if an XML configuration file or `@Configuration` class is responsible
 for creating an embedded database and the corresponding configuration is then reused
-across multiple testing scenarios within the same test suite (that is, within the same JVM
+across multiple testing scenarios within the same com.xiaohuan.Test suite (that is, within the same JVM
 process) -- for example, integration tests against embedded databases whose
 `ApplicationContext` configuration differs only with regard to which bean definition
 profiles are active.
@@ -5952,12 +5952,12 @@ bean, you can use the `initialize-database` tag in the `spring-jdbc` namespace:
 ----
 	<jdbc:initialize-database data-source="dataSource">
 		<jdbc:script location="classpath:com/foo/sql/db-schema.sql"/>
-		<jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>
+		<jdbc:script location="classpath:com/foo/sql/db-com.xiaohuan.Test-data.sql"/>
 	</jdbc:initialize-database>
 ----
 
 The preceding example runs the two specified scripts against the database. The first
-script creates a schema, and the second populates tables with a test data set. The script
+script creates a schema, and the second populates tables with a com.xiaohuan.Test data set. The script
 locations can also be patterns with wildcards in the usual Ant style used for resources
 in Spring (for example,
 `classpath{asterisk}:/com/foo/{asterisk}{asterisk}/sql/{asterisk}-data.sql`). If you use a
@@ -5965,7 +5965,7 @@ pattern, the scripts are run in the lexical order of their URL or filename.
 
 The default behavior of the database initializer is to unconditionally run the provided
 scripts. This may not always be what you want -- for instance, if you run
-the scripts against a database that already has test data in it. The likelihood
+the scripts against a database that already has com.xiaohuan.Test data in it. The likelihood
 of accidentally deleting data is reduced by following the common pattern (shown earlier)
 of creating the tables first and then inserting the data. The first step fails if
 the tables already exist.
@@ -6000,7 +6000,7 @@ In the preceding example, we are saying that we expect that, sometimes, the scri
 against an empty database, and there are some `DROP` statements in the scripts that
 would, therefore, fail. So failed SQL `DROP` statements will be ignored, but other failures
 will cause an exception. This is useful if your SQL dialect doesn't support `DROP ... IF
-EXISTS` (or similar) but you want to unconditionally remove all test data before
+EXISTS` (or similar) but you want to unconditionally remove all com.xiaohuan.Test data before
 re-creating it. In that case the first script is usually a set of `DROP` statements,
 followed by a set of `CREATE` statements.
 
@@ -6015,14 +6015,14 @@ following example shows:
 ----
 	<jdbc:initialize-database data-source="dataSource" separator="@@"> <1>
 		<jdbc:script location="classpath:com/myapp/sql/db-schema.sql" separator=";"/> <2>
-		<jdbc:script location="classpath:com/myapp/sql/db-test-data-1.sql"/>
-		<jdbc:script location="classpath:com/myapp/sql/db-test-data-2.sql"/>
+		<jdbc:script location="classpath:com/myapp/sql/db-com.xiaohuan.Test-data-1.sql"/>
+		<jdbc:script location="classpath:com/myapp/sql/db-com.xiaohuan.Test-data-2.sql"/>
 	</jdbc:initialize-database>
 ----
 <1> Set the separator scripts to `@@`.
 <2> Set the separator for `db-schema.sql` to `;`.
 
-In this example, the two `test-data` scripts use `@@` as statement separator and only
+In this example, the two `com.xiaohuan.Test-data` scripts use `@@` as statement separator and only
 the `db-schema.sql` uses `;`. This configuration specifies that the default separator
 is `@@` and overrides that default for the `db-schema` script.
 
@@ -6113,7 +6113,7 @@ The benefits of using the Spring Framework to create your ORM DAOs include:
 * *Easier testing.* Spring's IoC approach makes it easy to swap the implementations
   and configuration locations of Hibernate `SessionFactory` instances, JDBC `DataSource`
   instances, transaction managers, and mapped object implementations (if needed). This
-  in turn makes it much easier to test each piece of persistence-related code in
+  in turn makes it much easier to com.xiaohuan.Test each piece of persistence-related code in
   isolation.
 * *Common data access exceptions.* Spring can wrap exceptions from your ORM tool,
   converting them from proprietary (potentially checked) exceptions to a common runtime
@@ -6369,7 +6369,7 @@ implementation resembles the following example, based on the plain Hibernate API
 
 		public Collection loadProductsByCategory(String category) {
 			return this.sessionFactory.getCurrentSession()
-					.createQuery("from test.Product product where product.category=?")
+					.createQuery("from com.xiaohuan.Test.Product product where product.category=?")
 					.setParameter(0, category)
 					.list();
 		}
@@ -6382,7 +6382,7 @@ implementation resembles the following example, based on the plain Hibernate API
 		
 		fun loadProductsByCategory(category: String): Collection<*> {
 			return sessionFactory.currentSession
-					.createQuery("from test.Product product where product.category=?")
+					.createQuery("from com.xiaohuan.Test.Product product where product.category=?")
 					.setParameter(0, category)
 					.list()
 		}
@@ -6658,7 +6658,7 @@ added value of participating in the Java EE server's management infrastructure, 
 not add actual value beyond that.
 
 Spring's transaction support is not bound to a container. When configured with any strategy
-other than JTA, transaction support also works in a stand-alone or test environment.
+other than JTA, transaction support also works in a stand-alone or com.xiaohuan.Test environment.
 Especially in the typical case of single-database transactions, Spring's single-resource
 local transaction support is a lightweight and powerful alternative to JTA. When you use
 local EJB stateless session beans to drive transactions, you depend both on an EJB
@@ -6681,7 +6681,7 @@ of your container if you use, for example, WebLogic Express, which does not
 provide JCA. A Spring application with local resources and transactions that span one
 single database works in any Java EE web container (without JTA, JCA, or EJB), such as
 Tomcat, Resin, or even plain Jetty. Additionally, you can easily reuse such a middle
-tier in desktop applications or test suites.
+tier in desktop applications or com.xiaohuan.Test suites.
 
 All things considered, if you do not use EJBs, stick with local `SessionFactory` setup
 and Spring's `HibernateTransactionManager` or `JtaTransactionManager`. You get all of
@@ -6805,7 +6805,7 @@ This form of JPA deployment is the simplest and the most limited. You cannot ref
 existing JDBC `DataSource` bean definition, and no support for global transactions
 exists. Furthermore, weaving (byte-code transformation) of persistent classes is
 provider-specific, often requiring a specific JVM agent to specified on startup. This
-option is sufficient only for stand-alone applications and test environments, for which
+option is sufficient only for stand-alone applications and com.xiaohuan.Test environments, for which
 the JPA specification is designed.
 
 [[orm-jpa-setup-jndi]]

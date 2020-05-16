@@ -27,10 +27,10 @@
 
 	<mvc:freemarker-configurer>
 		<mvc:template-loader-path location="/"/>
-		<mvc:template-loader-path location="/test"/>
+		<mvc:template-loader-path location="/com.xiaohuan.Test"/>
 	</mvc:freemarker-configurer>
 
-	<mvc:groovy-configurer resource-loader-path="/test" cache-templates="false" auto-indent="true"/>
+	<mvc:groovy-configurer resource-loader-path="/com.xiaohuan.Test" cache-templates="false" auto-indent="true"/>
 
 	<mvc:script-template-configurer engine-name="nashorn" render-function="render" content-type="text/plain"
 			charset="ISO-8859-1" resource-loader-path="classpath:" shared-engine="false">

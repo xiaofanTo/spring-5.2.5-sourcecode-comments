@@ -64,7 +64,7 @@
 	<!--
 		Stateful mixin. Note that singleton property is false.
 	-->
-	<bean id="lockableAdvisor" class="test.mixin.LockMixinAdvisor"
+	<bean id="lockableAdvisor" class="com.xiaohuan.Test.mixin.LockMixinAdvisor"
 			scope="prototype"/>
 
 	<bean id="countingBeforeAdvice" class="org.springframework.aop.testfixture.advice.CountingBeforeAdvice"/>
@@ -82,7 +82,7 @@
 	</bean>
 
 	<!--
-		Lazy only because it breaks other tests until this test is fixed
+		Lazy only because it breaks other tests until this com.xiaohuan.Test is fixed
 	-->
 	<bean id="factory-introductionUsingJdk" class="org.springframework.aop.framework.autoproxy.CreatesTestBean"
 			lazy-init="true">

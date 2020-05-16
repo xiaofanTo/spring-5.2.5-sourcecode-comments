@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/websocket https://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 	<websocket:handlers allowed-origins="https://mydomain1.example, https://mydomain2.example">
-		<websocket:mapping path="/test" handler="testHandler"/>
+		<websocket:mapping path="/com.xiaohuan.Test" handler="testHandler"/>
 		<websocket:sockjs name="testSockJsService" scheduler="testTaskScheduler" websocket-enabled="false"
 						  session-cookie-needed="false" stream-bytes-limit="2048" disconnect-delay="256"
 						  message-cache-size="1024" heartbeat-time="20" message-codec="messageCodec"
