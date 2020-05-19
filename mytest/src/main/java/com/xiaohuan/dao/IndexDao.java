@@ -1,5 +1,8 @@
 package com.xiaohuan.dao;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,8 +16,15 @@ import org.springframework.stereotype.Repository;
  * @Version: 1.0
  */
 @Repository
-public class IndexDao {
+public class IndexDao implements ApplicationContextAware {
+	private ApplicationContext context;
 	public void query() {
+		System.out.println(context);
 		System.out.println("IndexDao query");
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.context = applicationContext;
 	}
 }

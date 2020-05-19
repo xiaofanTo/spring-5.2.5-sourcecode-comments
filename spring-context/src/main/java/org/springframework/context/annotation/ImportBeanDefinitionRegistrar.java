@@ -57,6 +57,8 @@ import org.springframework.core.type.AnnotationMetadata;
  * @see Import
  * @see ImportSelector
  * @see Configuration
+ *
+ * 参与bd的建立过程  @MapperScan()就是通过这个来实现的  将一个接口变成了一个bd
  */
 public interface ImportBeanDefinitionRegistrar {
 

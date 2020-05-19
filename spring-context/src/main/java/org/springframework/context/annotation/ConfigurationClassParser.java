@@ -170,12 +170,16 @@ class ConfigurationClassParser {
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
+				// 对不同的bd分策略来解析
+				// 1.有注解的通过注解 metadata 来解析
 				if (bd instanceof AnnotatedBeanDefinition) {
 					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
 				}
+				// 2.没有注解 但是有beanClass的来解析
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
 					parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
 				}
+				// 3.没有注解  没有beanClass的来通过ClassName来解析
 				else {
 					parse(bd.getBeanClassName(), holder.getBeanName());
 				}
@@ -221,12 +225,16 @@ class ConfigurationClassParser {
 	}
 
 
+	// todo:真正对配置类进行处理的地方
 	protected void processConfigurationClass(ConfigurationClass configClass, Predicate<String> filter) throws IOException {
+		// 1.有@Conditional则跳过解析
 		if (this.conditionEvaluator.shouldSkip(configClass.getMetadata(), ConfigurationPhase.PARSE_CONFIGURATION)) {
 			return;
 		}
 
+		// 判断是否已解析
 		ConfigurationClass existingClass = this.configurationClasses.get(configClass);
+		// 1.已存在的情况
 		if (existingClass != null) {
 			if (configClass.isImported()) {
 				if (existingClass.isImported()) {
@@ -243,13 +251,15 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// Recursively process the configuration class and its superclass hierarchy.
+		// 2.不存在的情况 递归处理配置类以及其超类
 		SourceClass sourceClass = asSourceClass(configClass, filter);
 		do {
+			// 扫描@Configuration 类指定的包
 			sourceClass = doProcessConfigurationClass(configClass, sourceClass, filter);
 		}
 		while (sourceClass != null);
 
+		// 存放配置类的Map
 		this.configurationClasses.put(configClass, configClass);
 	}
 
@@ -266,12 +276,13 @@ class ConfigurationClassParser {
 			ConfigurationClass configClass, SourceClass sourceClass, Predicate<String> filter)
 			throws IOException {
 
+		// 1.处理Component注解
 		if (configClass.getMetadata().isAnnotated(Component.class.getName())) {
 			// Recursively process any member (nested) classes first
 			processMemberClasses(configClass, sourceClass, filter);
 		}
 
-		// Process any @PropertySource annotations
+		// 2.处理@PropertySource注解
 		for (AnnotationAttributes propertySource : AnnotationConfigUtils.attributesForRepeatable(
 				sourceClass.getMetadata(), PropertySources.class,
 				org.springframework.context.annotation.PropertySource.class)) {
@@ -284,7 +295,7 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// Process any @ComponentScan annotations
+		// 3.处理@ComponentScan注解
 		Set<AnnotationAttributes> componentScans = AnnotationConfigUtils.attributesForRepeatable(
 				sourceClass.getMetadata(), ComponentScans.class, ComponentScan.class);
 		if (!componentScans.isEmpty() &&
@@ -306,10 +317,12 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// Process any @Import annotations
+		// 4.处理@Import注解  asm技术去处理的
+		// 如果import的是一个普通类  那么会把这个普通类传进去进行解析
+		// 如果这个类是一个ImportSelector类  那么就会调用selector的方法 返回一个字符串类名  通过这个字符串得到一个类 继而递归调用本方法出来这个类
 		processImports(configClass, sourceClass, getImports(sourceClass), filter, true);
 
-		// Process any @ImportResource annotations
+		// 5.处理@ImportResource注解
 		AnnotationAttributes importResource =
 				AnnotationConfigUtils.attributesFor(sourceClass.getMetadata(), ImportResource.class);
 		if (importResource != null) {
@@ -321,18 +334,19 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// Process individual @Bean methods
+		// 6.处理单独的@Bean注解方法
 		Set<MethodMetadata> beanMethods = retrieveBeanMethodMetadata(sourceClass);
 		for (MethodMetadata methodMetadata : beanMethods) {
 			configClass.addBeanMethod(new BeanMethod(methodMetadata, configClass));
 		}
 
-		// Process default methods on interfaces
+		// 7.处理接口默认方法
 		processInterfaces(configClass, sourceClass);
 
-		// Process superclass, if any
+		// 8.如果有父类的话 处理父类
 		if (sourceClass.getMetadata().hasSuperClass()) {
 			String superclass = sourceClass.getMetadata().getSuperClassName();
+			// 父类的条件  不包含java 开头且不在已解析列表中
 			if (superclass != null && !superclass.startsWith("java") &&
 					!this.knownSuperclasses.containsKey(superclass)) {
 				this.knownSuperclasses.put(superclass, configClass);
@@ -342,6 +356,7 @@ class ConfigurationClassParser {
 		}
 
 		// No superclass -> processing is complete
+		//  没有父类则处理完成
 		return null;
 	}
 
@@ -636,7 +651,7 @@ class ConfigurationClassParser {
 	/**
 	 * Factory method to obtain a {@link SourceClass} from a {@link ConfigurationClass}.
 	 */
-	private SourceClass asSourceClass(ConfigurationClass configurationClass, Predicate<String> filter) throws IOException {
+	private SourceClass  asSourceClass(ConfigurationClass configurationClass, Predicate<String> filter) throws IOException {
 		AnnotationMetadata metadata = configurationClass.getMetadata();
 		if (metadata instanceof StandardAnnotationMetadata) {
 			return asSourceClass(((StandardAnnotationMetadata) metadata).getIntrospectedClass(), filter);

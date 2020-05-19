@@ -91,6 +91,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
 		//1.调用父类构造方法
+		//public GenricApplicationContext()     父类初始化的工作就是初始化一个DefaultListableBeanFactory
 		//2.调用自身无参构造方法 初始化注解读取器和xml扫描器
 		this();
 		//3.注册Configuration类

@@ -2,6 +2,7 @@ package com.xiaohuan;
 
 import com.xiaohuan.dao.IndexDao;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * <p>Title: test</p >
@@ -16,9 +17,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Test {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.register(IndexDao.class);
+		context.register(AppConfig.class);
 		context.refresh();
 		IndexDao dao = context.getBean(IndexDao.class);
 		dao.query();
+
+
+		//ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext();
+
 	}
 }

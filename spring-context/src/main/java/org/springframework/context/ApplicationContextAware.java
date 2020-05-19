@@ -72,7 +72,7 @@ public interface ApplicationContextAware extends Aware {
 	 * @see org.springframework.beans.factory.BeanInitializationException
 	 */
 
-	//获取当前环境中的ApplicationContext
+	// 这些都只是一些标志位  标志他是一个Aware接口   实际上注入applicationContext是在ApplicationContextAwareProcessor里面实现的
 	void setApplicationContext(ApplicationContext applicationContext) throws BeansException;
 
 }

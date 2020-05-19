@@ -49,6 +49,11 @@ import java.lang.annotation.Target;
  * @see ImportSelector
  * @see ImportBeanDefinitionRegistrar
  * @see ImportResource
+ *
+ * import有三种形式的类
+ * 1.普通类
+ * 2.ImportSelector类
+ * 3.ImportBeanDefinitionRegistrar类  MapperScan() 的实现就是通过这个类
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
