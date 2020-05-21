@@ -106,6 +106,7 @@ class ConfigurationClassEnhancer {
 			}
 			return configClass;
 		}
+		// cglib代理
 		Class<?> enhancedClass = createClass(newEnhancer(configClass, classLoader));
 		if (logger.isTraceEnabled()) {
 			logger.trace(String.format("Successfully enhanced %s; enhanced class name is: %s",
@@ -119,11 +120,23 @@ class ConfigurationClassEnhancer {
 	 */
 	private Enhancer newEnhancer(Class<?> configSuperClass, @Nullable ClassLoader classLoader) {
 		Enhancer enhancer = new Enhancer();
+		// 增强父类  CGLIB是基于继承来的
 		enhancer.setSuperclass(configSuperClass);
+		// 增强接口  why?  这个接口是为了获得BeanFactory
 		enhancer.setInterfaces(new Class<?>[] {EnhancedConfiguration.class});
 		enhancer.setUseFactory(false);
+
 		enhancer.setNamingPolicy(SpringNamingPolicy.INSTANCE);
+
+		// CGLIB生成类策略
+		// 主要是为生成的CGLIB代理类中添加成员变量$$BeanFactory
+		// 这样可以直接从BeanFactory取得对象了
 		enhancer.setStrategy(new BeanFactoryAwareGeneratorStrategy(classLoader));
+
+		// 给方法添加拦截器
+		// 1.BeanMethodInterceptor(),
+		// 2.BeanFactoryAwareMethodInterceptor(),
+		// 3.NoOp.INSTANCE
 		enhancer.setCallbackFilter(CALLBACK_FILTER);
 		enhancer.setCallbackTypes(CALLBACK_FILTER.getCallbackTypes());
 		return enhancer;
@@ -298,6 +311,9 @@ class ConfigurationClassEnhancer {
 			// To handle the case of an inter-bean method reference, we must explicitly check the
 			// container for already cached instances.
 
+
+
+			// todo:重点
 			// First, check to see if the requested bean is a FactoryBean. If so, create a subclass
 			// proxy that intercepts calls to getObject() and returns any cached bean instance.
 			// This ensures that the semantics of calling a FactoryBean from within @Bean methods
@@ -314,6 +330,8 @@ class ConfigurationClassEnhancer {
 				}
 			}
 
+			// 判断是new 一个Bean还是直接从BeanFactory中取得一个bean
+			// 判断执行的方法和调用方法是不是同一个方法
 			if (isCurrentlyInvokedFactoryMethod(beanMethod)) {
 				// The factory is calling the bean method in order to instantiate and register the bean
 				// (i.e. via a getBean() call) -> invoke the super implementation of the method to actually

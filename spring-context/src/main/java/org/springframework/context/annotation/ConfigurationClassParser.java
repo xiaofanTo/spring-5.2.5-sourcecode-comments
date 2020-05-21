@@ -170,16 +170,16 @@ class ConfigurationClassParser {
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
-				// 对不同的bd分策略来解析
+				// 对不同的BeanDefinition分策略来解析
 				// 1.有注解的通过注解 metadata 来解析
 				if (bd instanceof AnnotatedBeanDefinition) {
 					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
 				}
-				// 2.没有注解 但是有beanClass的来解析
+				// 2.没有注解 但是有beanClass的来解析 有beanClass证明这个bean已经注册到map中
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
 					parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
 				}
-				// 3.没有注解  没有beanClass的来通过ClassName来解析
+				// 3.没有注解  没有注入的来通过ClassName来解析
 				else {
 					parse(bd.getBeanClassName(), holder.getBeanName());
 				}
@@ -226,15 +226,17 @@ class ConfigurationClassParser {
 
 
 	// todo:真正对配置类进行处理的地方
-	protected void processConfigurationClass(ConfigurationClass configClass, Predicate<String> filter) throws IOException {
-		// 1.有@Conditional则跳过解析
+	protected void
+	processConfigurationClass(ConfigurationClass configClass, Predicate<String> filter) throws IOException {
+		// 1.如果有Conditional注解 则对Conditional注解里面的Condition条件进行判断
+		// 如果满足这些条件则跳过解析
 		if (this.conditionEvaluator.shouldSkip(configClass.getMetadata(), ConfigurationPhase.PARSE_CONFIGURATION)) {
 			return;
 		}
 
-		// 判断是否已解析
+		// 2.判断是否已解析  主要是防止IOC容器启动后又调用了refresh()所产生的重复解析
 		ConfigurationClass existingClass = this.configurationClasses.get(configClass);
-		// 1.已存在的情况
+		// 已经被解析过  则判断是通过哪种方式解析的
 		if (existingClass != null) {
 			if (configClass.isImported()) {
 				if (existingClass.isImported()) {
@@ -251,10 +253,10 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// 2.不存在的情况 递归处理配置类以及其超类
+		// 3.该配置类没有被解析过  则递归处理配置类以及其父类
 		SourceClass sourceClass = asSourceClass(configClass, filter);
 		do {
-			// 扫描@Configuration 类指定的包
+			// 真正处理配置类的地方
 			sourceClass = doProcessConfigurationClass(configClass, sourceClass, filter);
 		}
 		while (sourceClass != null);
@@ -276,13 +278,15 @@ class ConfigurationClassParser {
 			ConfigurationClass configClass, SourceClass sourceClass, Predicate<String> filter)
 			throws IOException {
 
-		// 1.处理Component注解
+		// 真正处理配置类的地方
+
+		// 1.处理配置类中的内部类
 		if (configClass.getMetadata().isAnnotated(Component.class.getName())) {
-			// Recursively process any member (nested) classes first
+			// 首先递归的处理内部类
 			processMemberClasses(configClass, sourceClass, filter);
 		}
 
-		// 2.处理@PropertySource注解
+		// 2.处理@PropertySource注解 加载指定的属性文件
 		for (AnnotationAttributes propertySource : AnnotationConfigUtils.attributesForRepeatable(
 				sourceClass.getMetadata(), PropertySources.class,
 				org.springframework.context.annotation.PropertySource.class)) {
@@ -295,13 +299,16 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// 3.处理@ComponentScan注解
+		// todo:重点
+		// 3.处理@ComponentScan注解 扫描注定的包
 		Set<AnnotationAttributes> componentScans = AnnotationConfigUtils.attributesForRepeatable(
 				sourceClass.getMetadata(), ComponentScans.class, ComponentScan.class);
 		if (!componentScans.isEmpty() &&
 				!this.conditionEvaluator.shouldSkip(sourceClass.getMetadata(), ConfigurationPhase.REGISTER_BEAN)) {
 			for (AnnotationAttributes componentScan : componentScans) {
-				// The config class is annotated with @ComponentScan -> perform the scan immediately
+				// 配置类有@ComponentScan注解  则立刻进行扫描
+				// todo：重点
+				// 真正扫描包的地方 扫描@ComponentScan里指定的包 并将扫描出来的Bean注册到BeanDefinition里面去
 				Set<BeanDefinitionHolder> scannedBeanDefinitions =
 						this.componentScanParser.parse(componentScan, sourceClass.getMetadata().getClassName());
 				// Check the set of scanned definitions for any further config classes and parse recursively if needed
@@ -310,6 +317,7 @@ class ConfigurationClassParser {
 					if (bdCand == null) {
 						bdCand = holder.getBeanDefinition();
 					}
+					// 如果检测出来扫描的Bean是配置类  则继续进行递归处理
 					if (ConfigurationClassUtils.checkConfigurationClassCandidate(bdCand, this.metadataReaderFactory)) {
 						parse(bdCand.getBeanClassName(), holder.getBeanName());
 					}
@@ -318,9 +326,12 @@ class ConfigurationClassParser {
 		}
 
 		// 4.处理@Import注解  asm技术去处理的
-		// 如果import的是一个普通类  那么会把这个普通类传进去进行解析
-		// 如果这个类是一个ImportSelector类  那么就会调用selector的方法 返回一个字符串类名  通过这个字符串得到一个类 继而递归调用本方法出来这个类
+		// 注意Import导入的类有三种情况
+		// 1.普通类 则直接导入
+		// 2.实现了ImportSelector接口的类
+		// 3.实现了ImportBeanDefinitionRegistrar接口的类
 		processImports(configClass, sourceClass, getImports(sourceClass), filter, true);
+
 
 		// 5.处理@ImportResource注解
 		AnnotationAttributes importResource =
@@ -579,8 +590,10 @@ class ConfigurationClassParser {
 			this.importStack.push(configClass);
 			try {
 				for (SourceClass candidate : importCandidates) {
+					// 1.处理ImportSelector的地方（需要循环递归）
 					if (candidate.isAssignable(ImportSelector.class)) {
 						// Candidate class is an ImportSelector -> delegate to it to determine imports
+
 						Class<?> candidateClass = candidate.loadClass();
 						ImportSelector selector = ParserStrategyUtils.instantiateClass(candidateClass, ImportSelector.class,
 								this.environment, this.resourceLoader, this.registry);
@@ -597,6 +610,7 @@ class ConfigurationClassParser {
 							processImports(configClass, currentSourceClass, importSourceClasses, exclusionFilter, false);
 						}
 					}
+					// 2.处理ImportBeanDefinitionRegistrar（需要循环递归）
 					else if (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) {
 						// Candidate class is an ImportBeanDefinitionRegistrar ->
 						// delegate to it to register additional bean definitions
@@ -606,11 +620,13 @@ class ConfigurationClassParser {
 										this.environment, this.resourceLoader, this.registry);
 						configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());
 					}
+					// 3.处理普通类
 					else {
 						// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar ->
 						// process it as an @Configuration class
 						this.importStack.registerImport(
 								currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());
+
 						processConfigurationClass(candidate.asConfigClass(configClass), exclusionFilter);
 					}
 				}

@@ -1,7 +1,9 @@
 package com.xiaohuan;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * <p>Title: com.xiaohuan.AppCofig</p >
@@ -15,5 +17,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("com.xiaohuan")
+@Import(MyImportBeanDefinition.class)
+//@Conditional(MyCondition.class)
 public class AppConfig {
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>Title: MyBeanFactoryPostProcessor</p >
@@ -18,10 +19,11 @@ import org.springframework.core.type.AnnotationMetadata;
  * @Date: 2020/5/19 11:41 上午
  * @Version: 1.0
  */
+@Component
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor, ImportBeanDefinitionRegistrar {
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-
+		System.out.println("myBeanFactoryPostProcessor");
 	}
 
 	@Override

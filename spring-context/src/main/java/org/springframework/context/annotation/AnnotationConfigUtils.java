@@ -148,6 +148,7 @@ public abstract class AnnotationConfigUtils {
 	public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 			BeanDefinitionRegistry registry, @Nullable Object source) {
 
+		// 获取BeanFactory
 		DefaultListableBeanFactory beanFactory = unwrapDefaultListableBeanFactory(registry);
 
 		if (beanFactory != null) {
@@ -165,9 +166,12 @@ public abstract class AnnotationConfigUtils {
 
 		// 初始化Spring内部提供的Bean(6个) 往BeanDefinitionMap中注册
 		// todo:注册这些类的意义
+		// 重点类：org.springframework.context.annotation.internalConfigurationAnnotationProcessor  -->
+		// ConfigurationClassPostProcessor.class
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
 			def.setSource(source);
+			//
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 

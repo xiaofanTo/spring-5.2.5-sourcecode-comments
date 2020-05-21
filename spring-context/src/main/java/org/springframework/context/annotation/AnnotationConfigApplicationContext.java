@@ -90,13 +90,19 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
-		//1.调用父类构造方法
-		//public GenricApplicationContext()     父类初始化的工作就是初始化一个DefaultListableBeanFactory
-		//2.调用自身无参构造方法 初始化注解读取器和xml扫描器
+		// 1.调用父类构造方法
+		// public GenricApplicationContext()     父类初始化的工作就是初始化一个DefaultListableBeanFactory
+
+
+		// 2.调用自身无参构造方法 初始化注解读取器和xml扫描器
+		// 在初始化reader的时候同时初始化了5个系统默认BD  最重要的BD为ConfigurationClassPostProcessor
+		// 在初始化xml扫描器的时候 进行environment和resourceloader
 		this();
-		//3.注册Configuration类
+
+
+		// 3.注册传进来的类  不一定非得是Configuration类  也可能是其他普通类
 		register(componentClasses);
-		//4.重启刷新IOC容器
+		// 4.重启刷新IOC容器
 		refresh();
 	}
 

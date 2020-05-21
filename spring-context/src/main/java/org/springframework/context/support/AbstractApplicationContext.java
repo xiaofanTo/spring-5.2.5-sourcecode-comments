@@ -57,6 +57,7 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.PayloadApplicationEvent;
 import org.springframework.context.ResourceLoaderAware;
+import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -516,10 +517,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
-			// 1.准备刷新环境
+			// 1.准备刷新环境  初始化启动标志  启动时间等等
 			prepareRefresh();
 
-			// 2.刷新内部bean factory  删除之前的bean factory,新建bean factory
+			// 2.获取beanFactory  对于GenericApplicationContext来说就是给BeanFactory设置一个SerializationId
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// 3.bean factory的准备 （重点） 包含了Aware功能的实现
@@ -529,13 +530,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// 4.目前无任何实现
 				postProcessBeanFactory(beanFactory);
 
-				// 5.对BeanFactoryPostProcessor进行处理  包括排序等功能的实现
-				// 在Spring 的环境中去执行已经被注册的factory processors
-				//
-				// 里面包含了扫描@Configuration类
+				// 5.对BeanFactoryPostProcessor进行处理
+				// 执行Spring自己注册的和我们手动注册的BeanPostProcessor和Bean
+				// 其中我们在前面的时候注册了一个ConfigurationClassPostProcessor
+				// 执行这个类里面的两个方法
+				//（1）postProcessBeanDefinitionRegistry：这个方法的最主要的作用是对配置类进行解析
+				// 并且扫描包  所有的Bean放入BeanDefinitionMap中  注意此时所有的Bean并没有实例化
+				// (2) postProcessBeanFactory：这个方法主要做的事情就是给配置类加上CGLIB代理
+				// 这样在配置类下面的@Bean返回的类都是单例的
 				invokeBeanFactoryPostProcessors(beanFactory);
 
-				// 6.注册BeanPostProcessor
+				// 6.注册Spring内部的BeanPostProcessor和手动注册的
 				registerBeanPostProcessors(beanFactory);
 
 				// 7.初始化context的消息源
@@ -551,7 +556,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				registerListeners();
 
 
-				// 11.实例化所有剩下的单例bean(非懒加载的)  真正实例化bean的地方  重点
+				// todo:重点
+				// 11.实例化所有剩下的单例bean(非懒加载的)
+				// 注意在此之前只是实例化出来的全是BeanPostProcessor和BeanFactoryPostProcessor
+				// 这里实例化的就是我们程序里面写的Bean
 				finishBeanFactoryInitialization(beanFactory);
 
 				// 12.发布对应事件
@@ -586,7 +594,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * 准备环境来进行刷新，设置启动时间、active标志以及执行属性源的初始化
 	 */
 	protected void prepareRefresh() {
-		// Switch to active.
+		// 初始化容器的一些标志  比如
 		this.startupDate = System.currentTimeMillis();
 		this.closed.set(false);
 		this.active.set(true);
@@ -654,7 +662,6 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// 对象和String类型的转换
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
-		// Configure the bean factory with context callbacks.
 		// todo:重点！Spring bean的扩展点
 		// 注册一个ApplicationContextAwareProcessor  用于处理不同的Aware
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
