@@ -257,7 +257,6 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 		// 通过CGLIB代理  为什么需要CGLIB代理
 		// 加了@Configuration 会被代理  否则不会被代理
-		// spring标志位FULL 为全注解  LITE为半注解
 		enhanceConfigurationClasses(beanFactory);
 		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory));
 	}

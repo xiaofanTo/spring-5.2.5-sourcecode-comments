@@ -60,10 +60,12 @@ final class PostProcessorRegistrationDelegate {
 		Set<String> processedBeans = new HashSet<>();
 		// 1.判断BeanFactory是否实现了BeanDefinitionRegistry接口
 		// 1.1 当前BeanFactory实现了BeanDefinitionRegistry接口
-		// 找到下面三种类进行执行：
-		// (1) 手动注册的BeanFactoryPostProcessor
-		// (2) 手动注册的BeanDefinitionRegistryPostProcessor
-		// (3) Spring注册的BeanDefinitionRegistryPostProcessor (在初始化reader的时候注册的)
+		// 如果当前BeanFactory实现了BeanDefintionRegistry接口，那么步骤如下：
+		// (1)执行手动注册的BeanDefinitionRegistryPostProcessor的接口方法postProcessBeanDefinitionRegistry
+		// (2)执行Spring内部注册的ConfigurationClassPostProcessor的postProcessBeanDefinitionRegistry来扫描包
+		//  这步操作就得到了我们用注解方法实现的BeanDefintionRegistry和BeanFactoryPostProcessorrrrrrrrr
+		// (3) 执行我们实现了用注解方式给Spring管理的BeanDefinitionRegistry
+		// (4) 执行剩下的BeanFactoryPostProcessor接口方法
 		// 注意如果是实现了BeanDefinitionRegistryPostProcessor接口的Bean需要执行两个方法
 		// 因为BeanDefinitionRegistryPostProcessor继承于BeanFactoryPostProcessor
 		// 所以除了调用BeanDefinitionRegistryPostProcessor.postProcessBeanDefinitionRegistry()
@@ -95,6 +97,7 @@ final class PostProcessorRegistrationDelegate {
 			// 此时应该只有一个  就是之前注册的ConfigurationClassPostProcessor
 			// 然后将实现了PriorityOrdered、Ordered接口的进行排序然后执行
 			// 最后实现未排序的方法调用
+			// 注意这里的作用是为了扫描包，同时也把我们自己实现的BeanFactoryPostProcessor扫描出来
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			for (String ppName : postProcessorNames) {
@@ -111,8 +114,12 @@ final class PostProcessorRegistrationDelegate {
 			currentRegistryProcessors.clear();
 
 
+			// 经过前面执行的ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry扫描出来
+			// 实现了BeanDefinitionRegistryPostProcessor接口的类
+			// 这里找到这些类然后执行它们的方法
 			postProcessorNames = beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			for (String ppName : postProcessorNames) {
+				// 去除上面已经执行完的ConfigurationClassPostProcessor
 				if (!processedBeans.contains(ppName) && beanFactory.isTypeMatch(ppName, Ordered.class)) {
 					currentRegistryProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));
 					processedBeans.add(ppName);

@@ -27,7 +27,7 @@ public class Test {
 		System.out.println("test");
 
 
-		context.refresh();
+		//context.refresh();
 //		context.register(AppConfig.class);
 //		context.refresh();
 //		IndexDao dao = context.getBean(IndexDao.class);
